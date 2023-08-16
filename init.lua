@@ -1,3 +1,10 @@
+vim.api.nvim_create_autocmd("Filetype", {
+  pattern = "python,java",
+  callback = function()
+    require("todo-comments").setup()
+  end,
+})
+
 return {
   lsp = {
     setup_handlers = {
@@ -80,6 +87,7 @@ return {
         ["<leader>ji"] = { "<cmd>lua require'jdtls'.organize_imports()<cr>" },
         ["<leader>jda"] = { "<cmd>lua require'jdtls'.test_class({after_test=function() require'dapui'.toggle() end})<cr>" },
         ["<leader>jdc"] = { "<cmd>lua require'jdtls'.test_nearest_method({after_test=function() require'dapui'.toggle() end})<cr>" },
+        ["<leader>Tn"] = { "<cmd> lua require'todo-comments'.jump_next()<cr>" },
       },
     }
   },
@@ -91,5 +99,7 @@ return {
         ensure_installed = { "jdtls" },
       },
     },
+    "folke/todo-comments.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
   },
 }

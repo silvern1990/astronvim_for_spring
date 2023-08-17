@@ -84,11 +84,12 @@ return {
     },
     mappings = {
       n = {
-        ["<leader>ji"] = { "<cmd>lua require'jdtls'.organize_imports()<cr>" },
-        ["<leader>jda"] = { "<cmd>lua require'jdtls'.test_class({after_test=function() require'dapui'.toggle() end})<cr>" },
-        ["<leader>jdc"] = { "<cmd>lua require'jdtls'.test_nearest_method({after_test=function() require'dapui'.toggle() end})<cr>" },
-        ["<leader>Tn"] = { "<cmd> lua require'todo-comments'.jump_next()<cr>" },
-        ["<leader>fT"] = { "<cmd>TodoTelescope<cr>"}
+        ["<leader>ji"] = { "<cmd>lua require'jdtls'.organize_imports()<cr>", desc = "organize_imports" },
+        ["<leader>jda"] = { "<cmd>lua require'jdtls'.test_class({after_test=function() require'dapui'.toggle() end})<cr>", desc = "test class" },
+        ["<leader>jdc"] = { "<cmd>lua require'jdtls'.test_nearest_method({after_test=function() require'dapui'.toggle() end})<cr>", desc = "test method" },
+        ["<leader>ja"] = { "<cmd>lua vim.lsp.buf.code_action()<cr> ", desc = "Code Action"},
+        ["<leader>Tn"] = { "<cmd> lua require'todo-comments'.jump_next()<cr>", desc = "next-TODO comment" },
+        ["<leader>fT"] = { "<cmd>TodoTelescope<cr>"},
       },
     }
   },

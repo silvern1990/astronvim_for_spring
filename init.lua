@@ -88,6 +88,7 @@ return {
         ["<leader>jda"] = { "<cmd>lua require'jdtls'.test_class({after_test=function() require'dapui'.toggle() end})<cr>" },
         ["<leader>jdc"] = { "<cmd>lua require'jdtls'.test_nearest_method({after_test=function() require'dapui'.toggle() end})<cr>" },
         ["<leader>Tn"] = { "<cmd> lua require'todo-comments'.jump_next()<cr>" },
+        ["<leader>fT"] = { "<cmd>TodoTelescope<cr>"}
       },
     }
   },
@@ -99,7 +100,52 @@ return {
         ensure_installed = { "jdtls" },
       },
     },
-    "folke/todo-comments.nvim",
-    dependencies = { "nvim-lua/plenary.nvim" },
+    {
+      "folke/todo-comments.nvim",
+      dependencies = { "nvim-lua/plenary.nvim" },
+    },
+    {
+      "rcarriga/nvim-dap-ui",
+      config = {
+        layouts = {
+          {
+            elements = {
+              {
+                id = "scopes",
+                size = 0.25
+              },
+              {
+                id = "breakpoints",
+                size = 0.25
+              },
+              {
+                id = "stacks",
+                size = 0.25
+              },
+              {
+                id = "watches",
+                size = 0.25
+              }
+            },
+            position = "left",
+            size = 40
+          },
+          {
+            elements = {
+              {
+                id = "repl",
+                size = 0.5
+              },
+              {
+                id = "console",
+                size = 0.5
+              }
+            },
+            position = "bottom",
+            size = 10
+          }
+        }
+      },
+    }
   },
 }

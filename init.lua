@@ -5,15 +5,35 @@ vim.api.nvim_create_autocmd("Filetype", {
   end,
 })
 
+-- for java debugging 
+-- have to call function that finds main class after require"jdtls" is completed
+-- to do that, insert code require("jdtls.dap").setup_dap_main_class_configs()
+-- into nvim-jdtls/lua/jdtls/setup.lua
+-- like below example.
+--
+-- config.name = 'jdtls'
+-- local on_attach = config.on_attach
+-- config.on_attach = function(client, bufnr)
+--   if on_attach then
+--     on_attach(client, bufnr)
+--     require("jdtls.dap").setup_dap_main_class_configs()
+--   end
+--   add_commands(client, bufnr, opts)
+-- end
+
 return {
   lsp = {
+
     setup_handlers = {
       -- add custom handler
       jdtls = function(_, opts)
         vim.api.nvim_create_autocmd("Filetype", {
           pattern = "java", -- autocmd to start jdtls
           callback = function()
-            if opts.root_dir and opts.root_dir ~= "" then require("jdtls").start_or_attach(opts) end
+            if opts.root_dir and opts.root_dir ~= ""
+            then 
+              require("jdtls").start_or_attach(opts)
+            end
           end,
         })
       end
@@ -24,6 +44,7 @@ return {
         -- use this function notation to build some variables
         local root_markers = { ".git", "mvnw", "gradlew", "pom.xml", "build.gradle" }
         local root_dir = require("jdtls.setup").find_root(root_markers)
+
 
         -- calculate workspace dir
         local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
@@ -88,7 +109,7 @@ return {
         ["<leader>jda"] = { "<cmd>lua require'jdtls'.test_class({after_test=function() require'dapui'.toggle() end})<cr>", desc = "test class" },
         ["<leader>jdc"] = { "<cmd>lua require'jdtls'.test_nearest_method({after_test=function() require'dapui'.toggle() end})<cr>", desc = "test method" },
         ["<leader>ja"] = { "<cmd>lua vim.lsp.buf.code_action()<cr> ", desc = "Code Action"},
-        ["<leader>Tn"] = { "<cmd> lua require'todo-comments'.jump_next()<cr>", desc = "next-TODO comment" },
+        ["<leader>Tn"] = { "<cmd>lua require'todo-comments'.jump_next()<cr>", desc = "next-TODO comment" },
         ["<leader>fT"] = { "<cmd>TodoTelescope<cr>"},
       },
     }

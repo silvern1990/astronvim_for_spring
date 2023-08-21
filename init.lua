@@ -105,12 +105,14 @@ return {
     },
     mappings = {
       n = {
-        ["<leader>ji"] = { "<cmd>lua require'jdtls'.organize_imports()<cr>", desc = "organize_imports" },
-        ["<leader>jda"] = { "<cmd>lua require'jdtls'.test_class({after_test=function() require'dapui'.toggle() end})<cr>", desc = "test class" },
-        ["<leader>jdc"] = { "<cmd>lua require'jdtls'.test_nearest_method({after_test=function() require'dapui'.toggle() end})<cr>", desc = "test method" },
-        ["<leader>ja"] = { "<cmd>lua vim.lsp.buf.code_action()<cr> ", desc = "Code Action"},
-        ["<leader>Tn"] = { "<cmd>lua require'todo-comments'.jump_next()<cr>", desc = "next-TODO comment" },
-        ["<leader>fT"] = { "<cmd>TodoTelescope<cr>"},
+        ["<leader>ji"] = { function() require'jdtls'.organize_imports() end, desc = "organize_imports" },
+        ["<leader>jda"] = { function() require'jdtls'.test_class({after_test=function() require'dapui'.toggle() end}) end, desc = "test class" },
+        ["<leader>jdc"] = { function() require'jdtls'.test_nearest_method({after_test=function() require'dapui'.toggle() end}) end, desc = "test method" },
+        ["<leader>ja"] = { function() vim.lsp.buf.code_action() end, desc = "Code Action"},
+        ["<leader>Tn"] = { function() require'todo-comments'.jump_next() end, desc = "next-TODO comment" },
+        ["<leader>fT"] = { function() vim.cmd('TodoTelescope') end, desc = "Telescope TODO" },
+        ["<leader>dV"] = { function() require'dapui'.float_element('console', {width=100, height=100, enter=true}) end, desc = "float console window" },
+        ["<leader>dR"] = { function() require("dap").repl.toggle({height=15}) end, desc = "Toggle REPL" }
       },
     }
   },
@@ -134,34 +136,34 @@ return {
             elements = {
               {
                 id = "scopes",
-                size = 0.25
+                size = 0.2
               },
               {
                 id = "breakpoints",
-                size = 0.25
+                size = 0.2
               },
               {
                 id = "stacks",
-                size = 0.25
+                size = 0.2
               },
               {
                 id = "watches",
-                size = 0.25
+                size = 0.2
+              },
+              {
+                id = "repl",
+                size = 0.2
               }
             },
             position = "left",
-            size = 40
+            size = 30
           },
           {
             elements = {
               {
-                id = "repl",
-                size = 0.5
-              },
-              {
                 id = "console",
-                size = 0.5
-              }
+                size = 1
+              },
             },
             position = "bottom",
             size = 10

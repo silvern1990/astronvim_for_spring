@@ -21,7 +21,7 @@ move contents of this to ~/.config/nvim/lua/user directory.
 
 have to call setup_dap_main_class_configs() to find main class of project after require"jdtls" is completed
 to do that, insert code calling function
-into nvim-jdtls/lua/jdtls/setup.lua
+into ~/.local/share/nvim/lazy/nvim-jdtls/lua/jdtls/setup.lua
 like below example.
 
 ```

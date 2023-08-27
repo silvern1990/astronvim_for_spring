@@ -1,4 +1,6 @@
-Configuration file for using astronvim as spring IDE.
+
+
+User Configuration file for using astronvim as spring IDE.
 
 
 # Required LspInstall:
@@ -7,7 +9,9 @@ Configuration file for using astronvim as spring IDE.
 2. lemminx
 
 
+# apply configuration 
 
+move contents of this to ~/.config/nvim/lua/user directory.
 
 
 # For Debugging

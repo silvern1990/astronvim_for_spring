@@ -17,6 +17,7 @@ to do that, insert calling code
 into nvim-jdtls/lua/jdtls/setup.lua
 like below example.
 
+```
 config.name = 'jdtls'
 local on_attach = config.on_attach
 config.on_attach = function(client, bufnr)
@@ -26,4 +27,5 @@ config.on_attach = function(client, bufnr)
   end
   add_commands(client, bufnr, opts)
 end
+```
 

@@ -13,7 +13,7 @@ Configuration file for using astronvim as spring IDE.
 # For Debugging
 
 have to call setup_dap_main_class_configs() to find main class of project after require"jdtls" is completed
-to do that, insert calling code
+to do that, insert code calling function
 into nvim-jdtls/lua/jdtls/setup.lua
 like below example.
 

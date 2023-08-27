@@ -1,5 +1,5 @@
 vim.api.nvim_create_autocmd("Filetype", {
-  pattern = "python,java",
+  pattern = "java",
   callback = function()
     require("todo-comments").setup()
   end,
@@ -123,6 +123,13 @@ return {
       opts = {
         ensure_installed = { "jdtls" },
       },
+    },
+    {
+      "silvern1990/template.nvim", cmd = {'Template'}, config = function()
+        require('template').setup({
+          temp_dir = "~/.config/nvim/lua/user/template", author="silvern1990", email="silvern1990@gmail.com"
+        })
+      end
     },
     {
       "folke/todo-comments.nvim",

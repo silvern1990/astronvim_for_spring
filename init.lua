@@ -6,22 +6,6 @@ vim.api.nvim_create_autocmd("Filetype", {
   end,
 })
 
--- for java debugging 
--- have to call function that finds main class after require"jdtls" is completed
--- to do that, insert code require("jdtls.dap").setup_dap_main_class_configs()
--- into nvim-jdtls/lua/jdtls/setup.lua
--- like below example.
---
--- config.name = 'jdtls'
--- local on_attach = config.on_attach
--- config.on_attach = function(client, bufnr)
---   if on_attach then
---     on_attach(client, bufnr)
---     require("jdtls.dap").setup_dap_main_class_configs()
---   end
---   add_commands(client, bufnr, opts)
--- end
-
 return {
   lsp = {
 

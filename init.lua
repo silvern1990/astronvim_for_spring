@@ -106,8 +106,6 @@ return {
         ["<leader>fT"] = { function() vim.cmd('TodoTelescope') end, desc = "Telescope TODO" },
         ["<leader>dV"] = { function() require'dapui'.float_element('console', {width=100, height=100, enter=true}) end, desc = "float console window" },
         ["<leader>dR"] = { function() require("dap").repl.toggle({height=15}) end, desc = "Toggle REPL" },
-        ["<leader>B"] = { function() require("astronvim.utils.status.heirline").buffer_picker(function(bufnr) vim.api.nvim_win_set_buf(0, bufnr) end) end, desc = "Select buffer from tabline" },
-        ["<s-f>"] = { function() require("telescope.builtin").find_files() end, desc = "Find files" },
       },
     }
   },

@@ -102,6 +102,7 @@ return {
         ["<leader>jtc"] = { function() vim.cmd('Template controller') end, desc = "controller Template"},
         ["<leader>jts"] = { function() vim.cmd('Template service') end, desc = "service Template"},
         ["<leader>jtm"] = { function() vim.cmd('Template mybatis') end, desc = "mybatis Template"},
+        ["<leader>jte"] = { function() vim.cmd('Template enum') end, desc = "enum class Template"},
         ["<leader>Tn"] = { function() require'todo-comments'.jump_next() end, desc = "next-TODO comment" },
         ["<leader>fT"] = { function() vim.cmd('TodoTelescope') end, desc = "Telescope TODO" },
         ["<leader>dV"] = { function() require'dapui'.float_element('console', {width=100, height=100, enter=true}) end, desc = "float console window" },

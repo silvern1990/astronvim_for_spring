@@ -13,7 +13,7 @@ return {
       -- add custom handler
       jdtls = function(_, opts)
         vim.api.nvim_create_autocmd("Filetype", {
-          pattern = "java", -- autocmd to start jdtls
+          pattern = "java, html", -- autocmd to start jdtls, html filetype is added for refresh html content when it is changed while debugging.
           callback = function()
             if opts.root_dir and opts.root_dir ~= ""
             then 

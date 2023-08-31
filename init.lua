@@ -95,7 +95,6 @@ return {
         ["<leader>ji"] = { function() require'jdtls'.organize_imports() end, desc = "organize_imports" },
         ["<leader>jda"] = { function() require'jdtls'.test_class({after_test=function() require'dapui'.toggle() end}) end, desc = "test class" },
         ["<leader>jdc"] = { function() require'jdtls'.test_nearest_method({after_test=function() require'dapui'.toggle() end}) end, desc = "test method" },
-        ["<leader>ja"] = { function() vim.lsp.buf.code_action() end, desc = "Code Action"},
         ["<leader>jt"] = { desc="Template" },
         ["<leader>jtj"] = { function() vim.cmd('Template class') end, desc = "class Template"},
         ["<leader>jti"] = { function() vim.cmd('Template interface') end, desc = "interface Template"},

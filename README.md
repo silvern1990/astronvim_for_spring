@@ -9,6 +9,10 @@ User Configuration file for using astronvim as spring IDE.
 move contents of this to ~/.config/nvim/lua/user directory.
 
 
+# Required Install:
+1. java-debug - https://github.com/microsoft/java-debug
+2. vscode-java-test - https://github.com/microsoft/vscode-java-test
+
 
 # Required LspInstall:
 

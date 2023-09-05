@@ -19,6 +19,7 @@ User Configuration file for using astronvim as spring IDE.
 # Required LspInstall:
 
 1. jdtls
+2. html
 
 
 # For Debugging

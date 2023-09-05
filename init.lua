@@ -1,25 +1,33 @@
-
-vim.api.nvim_create_autocmd("Filetype", {
-  pattern = "java",
-  callback = function()
-    require("todo-comments").setup()
-  end,
-})
-
 return {
   lsp = {
-
     setup_handlers = {
       -- add custom handler
       jdtls = function(_, opts)
         vim.api.nvim_create_autocmd("Filetype", {
-          pattern = "java, html", -- autocmd to start jdtls, html filetype is added for refresh html content when it is changed while debugging.
+          pattern = "java",
           callback = function()
             if opts.root_dir and opts.root_dir ~= ""
             then 
               require("jdtls").start_or_attach(opts)
+              require("todo-comments").setup()
             end
           end,
+        })
+      end,
+      html = function(_, opts)
+        vim.api.nvim_create_autocmd("BufWritePost", {
+          callback = function() -- auto build for thymeleaf template 
+            local root_dir = require("jdtls.setup").find_root({"mvnw"})
+            if root_dir and root_dir ~= ""
+            then
+              local Job = require("plenary.job")
+              Job:new{
+                command = "./mvnw",
+                args = { "compile" },
+                cwd = root_dir,
+              }:start()
+            end
+          end
         })
       end
     },

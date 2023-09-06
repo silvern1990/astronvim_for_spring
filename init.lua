@@ -1,5 +1,9 @@
 return {
+  colorscheme = "gruvbox",
   lsp = {
+    formatting = {
+      format_on_save = false
+    },
     setup_handlers = {
       -- add custom handler
       jdtls = function(_, opts)
@@ -118,6 +122,7 @@ return {
     }
   },
   plugins = {
+    "morhetz/gruvbox", -- color scheme
     "mfussenegger/nvim-jdtls", -- load jdtls on module
     {
       "williamboman/mason-lspconfig.nvim",

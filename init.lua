@@ -60,11 +60,11 @@ return {
 
         local bundles = {
           vim.fn.glob(
-            "/Users/zero/.local/share/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar",
+            "/Users/zero/.local/share/debug/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar",
             1),
         }
         vim.list_extend(bundles,
-          vim.split(vim.fn.glob("/Users/zero/.local/share/vscode-java-test/server/*.jar", 1), "\n"))
+          vim.split(vim.fn.glob("/Users/zero/.local/share/debug/vscode-java-test/server/*.jar", 1), "\n"))
 
         -- return the server config
         return {
@@ -112,7 +112,7 @@ return {
         ["<leader>jte"] = { function() vim.cmd('Template enum') end, desc = "enum class Template"},
         ["<leader>Tn"] = { function() require'todo-comments'.jump_next() end, desc = "next-TODO comment" },
         ["<leader>fT"] = { function() vim.cmd('TodoTelescope') end, desc = "Telescope TODO" },
-        ["<leader>dV"] = { function() require'dapui'.float_element('console', {width=100, height=100, enter=true}) end, desc = "float console window" },
+        ["<leader>dV"] = { function() require'dapui'.float_element('console', {width=180, height=100, enter=true}) end, desc = "float console window" },
         ["<leader>dR"] = { function() require("dap").repl.toggle({height=15}) end, desc = "Toggle REPL" },
       },
     }
@@ -158,10 +158,6 @@ return {
                 id = "watches",
                 size = 0.2
               },
-              {
-                id = "repl",
-                size = 0.2
-              }
             },
             position = "left",
             size = 30
@@ -169,7 +165,7 @@ return {
           {
             elements = {
               {
-                id = "console",
+                id = "repl",
                 size = 1
               },
             },

@@ -1,5 +1,12 @@
 return {
   colorscheme = "gruvbox",
+  options = {
+    opt = {
+      shiftwidth=4,
+      tabstop=4,
+      softtabstop=4,
+    },
+  },
   lsp = {
     formatting = {
       format_on_save = false
@@ -171,7 +178,11 @@ return {
             elements = {
               {
                 id = "repl",
-                size = 1
+                size = 0.3
+              },
+              {
+                id = "console",
+                size = 0.7
               },
             },
             position = "bottom",

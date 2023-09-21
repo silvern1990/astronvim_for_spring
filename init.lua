@@ -18,17 +18,17 @@ return {
           pattern = "java",
           callback = function()
             if opts.root_dir and opts.root_dir ~= ""
-            then 
+            then
               require("jdtls").start_or_attach(opts)
               require("todo-comments").setup()
             end
           end,
         })
-      end,
-      html = function(_, opts)
         vim.api.nvim_create_autocmd("BufWritePost", {
+          pattern={"*.css", "*.html"},
           callback = function() -- auto build for thymeleaf template 
             local root_dir = require("jdtls.setup").find_root({"mvnw"})
+            vim.notify(root_dir)
             if root_dir and root_dir ~= ""
             then
               local Job = require("plenary.job")
@@ -40,7 +40,8 @@ return {
             end
           end
         })
-      end
+
+      end,
     },
     config = {
       -- set jdtls server settings
@@ -130,6 +131,7 @@ return {
   },
   plugins = {
     "morhetz/gruvbox", -- color scheme
+    "m4xshen/hardtime.nvim", -- offer good command for workflow
     "mfussenegger/nvim-jdtls", -- load jdtls on module
     {
       "williamboman/mason-lspconfig.nvim",

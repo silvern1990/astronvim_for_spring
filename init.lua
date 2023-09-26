@@ -1,5 +1,4 @@
 return {
-  colorscheme = "gruvbox",
   options = {
     opt = {
       shiftwidth=4,
@@ -28,7 +27,6 @@ return {
           pattern={"*.css", "*.html"},
           callback = function() -- auto build for thymeleaf template 
             local root_dir = require("jdtls.setup").find_root({"mvnw"})
-            vim.notify(root_dir)
             if root_dir and root_dir ~= ""
             then
               local Job = require("plenary.job")
@@ -129,8 +127,18 @@ return {
       },
     }
   },
+  colorscheme = "nightfly",
   plugins = {
     "morhetz/gruvbox", -- color scheme
+    "folke/tokyonight.nvim", -- color scheme
+    {
+      "catppuccin/nvim",
+      name = "catppuccin",
+      config = function()
+        require("catppuccin").setup{}
+      end,
+    }, --color scheme
+    "bluz71/vim-nightfly-colors", -- color scheme
     "m4xshen/hardtime.nvim", -- offer good command for workflow
     "mfussenegger/nvim-jdtls", -- load jdtls on module
     {

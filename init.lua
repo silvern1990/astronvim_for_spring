@@ -24,7 +24,7 @@ return {
           end,
         })
         vim.api.nvim_create_autocmd("BufWritePost", {
-          pattern={"*.css", "*.html"},
+          pattern={"*.css", "*.html", "*.js"},
           callback = function() -- auto build for thymeleaf template 
             local root_dir = require("jdtls.setup").find_root({"mvnw"})
             if root_dir and root_dir ~= ""

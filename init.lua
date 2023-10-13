@@ -132,6 +132,13 @@ return {
     "morhetz/gruvbox", -- color scheme
     "folke/tokyonight.nvim", -- color scheme
     {
+        "danymat/neogen",
+        dependencies = "nvim-treesitter/nvim-treesitter",
+        config = true,
+        -- Uncomment next line if you want to follow only stable versions
+        -- version = "*" 
+    },
+    {
       "catppuccin/nvim",
       name = "catppuccin",
       config = function()

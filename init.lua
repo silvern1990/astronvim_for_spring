@@ -111,6 +111,7 @@ return {
         -- java key map --
         ["<leader>j"] = { desc="Java" },
         ["<leader>ji"] = { function() require'jdtls'.organize_imports() end, desc = "organize_imports" },
+        ["<leader>jd"] = { desc = "junit test" },
         ["<leader>jda"] = { function() require'jdtls'.test_class({after_test=function() require'dapui'.toggle() end}) end, desc = "test class" },
         ["<leader>jdc"] = { function() require'jdtls'.test_nearest_method({after_test=function() require'dapui'.toggle() end}) end, desc = "test method" },
         ["<leader>jt"] = { desc="Template" },
@@ -120,6 +121,8 @@ return {
         ["<leader>jts"] = { function() vim.cmd('Template service') end, desc = "service Template"},
         ["<leader>jtm"] = { function() vim.cmd('Template mybatis') end, desc = "mybatis Template"},
         ["<leader>jte"] = { function() vim.cmd('Template enum') end, desc = "enum class Template"},
+        ["<leader>jr"] = { desc = "generate annotation" },
+        ["<leader>jrf"] = { function() require'neogen'.generate({ type = "func" }) end, desc = "generate javadoc annotation for method"},
         ["<leader>Tn"] = { function() require'todo-comments'.jump_next() end, desc = "next-TODO comment" },
         ["<leader>fT"] = { function() vim.cmd('TodoTelescope') end, desc = "Telescope TODO" },
         ["<leader>dV"] = { function() require'dapui'.float_element('console', {width=180, height=100, enter=true}) end, desc = "float console window" },

@@ -16,10 +16,11 @@ User Configuration file for using astronvim as spring IDE.
 2. <a href="https://github.com/mfussenegger/nvim-jdtls#nvim-dap-setup">vscode-java-test</a> - https://github.com/microsoft/vscode-java-test
 
 
-# Required LspInstall:
+# Required vim command:
 
-1. jdtls
-2. html
+1. :LspInstall jdtls
+2. :LspInstall html
+3. :TSInstall java
 
 
 # For Debugging

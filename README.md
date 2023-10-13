@@ -8,7 +8,7 @@ User Configuration file for using astronvim as spring IDE.
 
 1. move contents of this to ~/.config/nvim/lua/user directory.
 
-2. edit init.lua for personal environments.
+2. edit path in init.lua on personal environments.
 
 
 # Required Install:

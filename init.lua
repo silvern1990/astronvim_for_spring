@@ -125,6 +125,10 @@ return {
         ["<leader>jrf"] = { function() require'neogen'.generate({ type = "func" }) end, desc = "generate javadoc annotation for method"},
         ["<leader>Tn"] = { function() require'todo-comments'.jump_next() end, desc = "next-TODO comment" },
         ["<leader>fT"] = { function() vim.cmd('TodoTelescope') end, desc = "Telescope TODO" },
+        -- reset key map --
+        ["<leader>r"] = { desc = "reset plugin" },
+        ["<leader>rd"] = { function() require'dapui'.setup({layouts = { { elements = { { id = "scopes", size = 0.2 }, { id = "breakpoints", size = 0.2 }, { id = "stacks", size = 0.2 }, { id = "watches", size = 0.2 }, }, position = "left", size = 30 }, { elements = { { id = "console", size = 1 }, }, position = "bottom", size = 10 }}}) end, desc = "reset dapui"},
+        -- debugging key map -- 
         ["<leader>dV"] = { function() require'dapui'.float_element('console', {width=180, height=100, enter=true}) end, desc = "float console window" },
         ["<leader>dR"] = { function() require("dap").repl.toggle({height=15}) end, desc = "Toggle REPL" },
       },
@@ -197,12 +201,8 @@ return {
           {
             elements = {
               {
-                id = "repl",
-                size = 0.3
-              },
-              {
                 id = "console",
-                size = 0.7
+                size = 1
               },
             },
             position = "bottom",

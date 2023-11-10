@@ -2,6 +2,11 @@
 
 User Configuration file for using astronvim as spring IDE.
 
+# BUG
+
+- If you use the latest version of jdtls, there is a bug that does not find the test case for junit.
+- To fix this bug, use version 1.26.0 of jdtls. <a href="https://www.eclipse.org/downloads/download.php?file=/jdtls/milestones/1.26.0/jdt-language-server-1.26.0-202307271613.tar.gz">jdtls v1.26</a>
+- Download the file above and overwrite the contents of ~/.local/share/nvim/mason/packages/jdtls directory.
 
 
 # apply configuration 

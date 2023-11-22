@@ -158,7 +158,7 @@ return {
     {
       "williamboman/mason-lspconfig.nvim",
       opts = {
-        ensure_installed = { "jdtls" },
+        ensure_installed = { "jdtls", "html" },
       },
     },
     {

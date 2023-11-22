@@ -50,7 +50,8 @@ function M.start_or_attach(config, opts)
   config.on_attach = function(client, bufnr)
     if on_attach then
       on_attach(client, bufnr)
-      require("jdtls.dap").setup_dap_main_class_configs()   <----- this code 
+      require("jdtls.dap").setup_dap_main_class_configs()   <----- this code
+--    require("jdtls.dap").setup_dap_main_class_configs({config_overrides = { vmArgs = '-Dspring.profiles.active=dev'}}) <-- example of overriding jvm args
     end
     add_commands(client, bufnr, opts)
   end

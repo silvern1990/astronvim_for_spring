@@ -121,6 +121,7 @@ return {
         ["<leader>jts"] = { function() vim.cmd('Template service') end, desc = "service Template"},
         ["<leader>jtm"] = { function() vim.cmd('Template mybatis') end, desc = "mybatis Template"},
         ["<leader>jte"] = { function() vim.cmd('Template enum') end, desc = "enum class Template"},
+        ["<leader>jtv"] = { function() vim.cmd('Template vo') end, desc = "value object Template"},
         ["<leader>jtf"] = { function()
           -- Function to get the word under the cursor
           local line = vim.fn.getline('.')

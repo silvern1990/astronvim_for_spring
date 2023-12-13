@@ -5,11 +5,11 @@
 
 package {{_lua:vim.fn.expand("%:p"):sub(vim.fn.expand('%:p'):find('/src/.*/java/'), -1):gsub('/src/.*/java/', ''):gsub('/' .. vim.fn.expand('%:t'), ''):gsub('/', '.')_}};
 
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import lombok.Getter;
+import lombok.Setter;
 
-@Service
-@Transactional
+@Getter
+@Setter
 public class {{_file_name_}} {
     {{_cursor_}}
 }

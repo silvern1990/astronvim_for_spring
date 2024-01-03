@@ -26,7 +26,7 @@ return {
         vim.api.nvim_create_autocmd("BufWritePost", {
           pattern={"*.css", "*.html", "*.js"},
           callback = function() -- auto build for thymeleaf template 
-            local root_dir = require("jdtls.setup").find_root({"mvnw"})
+            local root_dir = require("jdtls.setup").find_root({"mvnw", ".git", "gradlew", "pom.xml", "build.gradle"})
             if root_dir and root_dir ~= ""
             then
               local Job = require("plenary.job")

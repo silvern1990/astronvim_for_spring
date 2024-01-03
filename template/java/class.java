@@ -6,7 +6,5 @@
 package {{_lua:vim.fn.expand("%:p"):sub(vim.fn.expand('%:p'):find('/src/.*/java/'), -1):gsub('/src/.*/java/', ''):gsub('/' .. vim.fn.expand('%:t'), ''):gsub('/', '.')_}};
 
 public class {{_file_name_}} {
-
-{{_cursor_}}
-
+    {{_cursor_}}
 }

@@ -9,7 +9,5 @@ import org.springframework.stereotype.Controller;
 
 @Controller
 public class {{_file_name_}} {
-
-{{_cursor_}}
-
+    {{_cursor_}}
 }

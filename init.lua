@@ -121,6 +121,35 @@ return {
         ["<leader>jts"] = { function() vim.cmd('Template service') end, desc = "service Template"},
         ["<leader>jtm"] = { function() vim.cmd('Template mybatis') end, desc = "mybatis Template"},
         ["<leader>jte"] = { function() vim.cmd('Template enum') end, desc = "enum class Template"},
+        ["<leader>jtv"] = { function() vim.cmd('Template vo') end, desc = "value object Template"},
+        ["<leader>jtf"] = { function()
+          -- Function to get the word under the cursor
+          local line = vim.fn.getline('.')
+          local col = vim.fn.col('.')
+          local start_col = col
+          local end_col = col
+
+          -- Find the start of the word
+          while start_col > 0 and line:sub(start_col, start_col):match('%w') do
+              start_col = start_col - 1
+          end
+
+          -- Find the end of the word
+          while end_col <= #line and line:sub(end_col, end_col):match('%w') do
+              end_col = end_col + 1
+          end
+
+          -- Extract the word
+          local word = line:sub(start_col + 1, end_col - 1)
+          if #word < 1 then
+            vim.notify("not found variable name under cursor", vim.log.levels.ERROR)
+            return
+          end
+
+          vim.api.nvim_command("normal! dd") -- delete variable name line
+
+          vim.cmd('Template var=' .. word .. ' mapping')
+        end, desc = "mapping method Template"},
         ["<leader>jr"] = { desc = "generate annotation" },
         ["<leader>jrf"] = { function() require'neogen'.generate({ type = "func" }) end, desc = "generate javadoc annotation for method"},
         ["<leader>Tn"] = { function() require'todo-comments'.jump_next() end, desc = "next-TODO comment" },
@@ -128,6 +157,7 @@ return {
         -- reset key map --
         ["<leader>r"] = { desc = "reset plugin" },
         ["<leader>rd"] = { function() require'dapui'.setup({layouts = { { elements = { { id = "scopes", size = 0.2 }, { id = "breakpoints", size = 0.2 }, { id = "stacks", size = 0.2 }, { id = "watches", size = 0.2 }, }, position = "left", size = 30 }, { elements = { { id = "console", size = 1 }, }, position = "bottom", size = 10 }}}) end, desc = "reset dapui"},
+        ["<leader>rj"] = { function() require("jdtls.dap").setup_dap_main_class_configs({config_overrides = { vmArgs = '-Dspring.profiles.active=dev'}}) end, desc = "find main class for java"},
         -- debugging key map -- 
         ["<leader>dV"] = { function() require'dapui'.float_element('console', {width=180, height=100, enter=true}) end, desc = "float console window" },
         ["<leader>dR"] = { function() require("dap").repl.toggle({height=15}) end, desc = "Toggle REPL" },
@@ -158,7 +188,7 @@ return {
     {
       "williamboman/mason-lspconfig.nvim",
       opts = {
-        ensure_installed = { "jdtls" },
+        ensure_installed = { "jdtls", "html" },
       },
     },
     {

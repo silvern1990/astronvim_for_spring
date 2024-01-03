@@ -70,11 +70,11 @@ return {
 
         local bundles = {
           vim.fn.glob(
-            "/Users/zero/.local/share/debug/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar",
+            "~/.local/share/nvim/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar",
             1),
         }
         vim.list_extend(bundles,
-          vim.split(vim.fn.glob("/Users/zero/.local/share/debug/vscode-java-test/server/*.jar", 1), "\n"))
+          vim.split(vim.fn.glob("~/.local/share/nvim/vscode-java-test/server/*.jar", 1), "\n"))
 
         -- return the server config
         return {

@@ -1,3 +1,4 @@
+local home = vim.fn.expand("$HOME")
 return {
   options = {
     opt = {
@@ -59,13 +60,8 @@ return {
 
         -- get the current OS
         local os
-        if vim.fn.has "macunix" then
-          os = "mac"
-        elseif vim.fn.has "win32" then
-          os = "win"
-        else
-          os = "linux"
-        end
+
+        os = "linux"
 
 
         local bundles = {
@@ -159,7 +155,7 @@ return {
         ["<leader>rd"] = { function() require'dapui'.setup({layouts = { { elements = { { id = "scopes", size = 0.2 }, { id = "breakpoints", size = 0.2 }, { id = "stacks", size = 0.2 }, { id = "watches", size = 0.2 }, }, position = "left", size = 30 }, { elements = { { id = "console", size = 1 }, }, position = "bottom", size = 10 }}}) end, desc = "reset dapui"},
         ["<leader>rj"] = { function() require("jdtls.dap").setup_dap_main_class_configs({config_overrides = { vmArgs = '-Dspring.profiles.active=dev'}}) end, desc = "find main class for java"},
         -- debugging key map -- 
-        ["<leader>dV"] = { function() require'dapui'.float_element('console', {width=180, height=100, enter=true}) end, desc = "float console window" },
+        ["<leader>dV"] = { function() require'dapui'.float_element('console', {width=260, height=100, enter=true}) end, desc = "float console window" },
         ["<leader>dR"] = { function() require("dap").repl.toggle({height=15}) end, desc = "Toggle REPL" },
       },
     }
@@ -201,6 +197,28 @@ return {
     {
       "folke/todo-comments.nvim",
       dependencies = { "nvim-lua/plenary.nvim" },
+    },
+    {
+      "jackMort/ChatGPT.nvim",
+      event = "VeryLazy",
+      config = function()
+        require("chatgpt").setup({
+          api_key_cmd = "gpg --decrypt " .. home .. "/.secret.txt.gpg",
+          openai_params = {
+            model = 'gpt-4-1106-preview',
+            max_tokens = 4096,
+          },
+          openai_edit_params = {
+            model = "gpt-4-1106-preview",
+            max_tokens = 128000,
+          },
+        })
+      end,
+      dependencies = {
+        "MunifTanjim/nui.nvim",
+        "nvim-lua/plenary.nvim",
+        "nvim-telescope/telescope.nvim"
+      }
     },
     {
       "rcarriga/nvim-dap-ui",

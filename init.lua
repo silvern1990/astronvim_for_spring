@@ -158,6 +158,11 @@ return {
         ["<leader>dV"] = { function() require'dapui'.float_element('console', {width=260, height=100, enter=true}) end, desc = "float console window" },
         ["<leader>dR"] = { function() require("dap").repl.toggle({height=15}) end, desc = "Toggle REPL" },
       },
+      v = {
+        -- chatGPT key map --
+        ["<leader>m"] = { desc = "chatGPT"},
+        ["<leader>mt"] = { function() vim.cmd('ChatGPTRun translate') end, desc = "translate"},
+      },
     }
   },
   -- colorscheme = "nightfly",
@@ -203,15 +208,16 @@ return {
       event = "VeryLazy",
       config = function()
         require("chatgpt").setup({
-          api_key_cmd = "gpg --decrypt " .. home .. "/.secret.txt.gpg",
-          openai_params = {
-            model = 'gpt-4-1106-preview',
-            max_tokens = 4096,
-          },
-          openai_edit_params = {
-            model = "gpt-4-1106-preview",
-            max_tokens = 128000,
-          },
+          api_key_cmd = "gpg --decrypt " .. home .. "/.chatgptKey",
+          actions_paths = {"~/.config/nvim/lua/user/chatGPT/actions.json"}
+          -- openai_params = {
+          --   model = 'gpt-4-1106-preview',
+          --   max_tokens = 4096,
+          -- },
+          -- openai_edit_params = {
+          --   model = "gpt-4-1106-preview",
+          --   max_tokens = 128000,
+          -- },
         })
       end,
       dependencies = {

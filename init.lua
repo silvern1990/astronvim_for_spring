@@ -160,17 +160,17 @@ return {
       },
     }
   },
-  colorscheme = "nightfly",
+  -- colorscheme = "nightfly",
   plugins = {
     "morhetz/gruvbox", -- color scheme
-    "folke/tokyonight.nvim", -- color scheme
-    {
-        "danymat/neogen",
-        dependencies = "nvim-treesitter/nvim-treesitter",
-        config = true,
-        -- Uncomment next line if you want to follow only stable versions
-        -- version = "*" 
-    },
+    -- "folke/tokyonight.nvim", -- color scheme
+    -- {
+    --     "danymat/neogen",
+    --     dependencies = "nvim-treesitter/nvim-treesitter",
+    --     config = true,
+    --     -- Uncomment next line if you want to follow only stable versions
+    --     -- version = "*" 
+    -- },
     {
       "catppuccin/nvim",
       name = "catppuccin",
@@ -232,11 +232,11 @@ return {
               },
               {
                 id = "console",
-                size = 0.65
+                size = 0.40
               },
               {
                 id = "repl",
-                size = 0.2
+                size = 0.45
               }
             },
             position = "bottom",

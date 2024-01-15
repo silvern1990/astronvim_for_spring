@@ -61,8 +61,13 @@ return {
 
         -- get the current OS
         local os
-
-        os = "linux"
+        if vim.fn.has "macunix" then
+          os = "mac"
+        elseif vim.fn.has "win32" then
+          os = "win"
+        else
+          os = "linux"
+        end
 
 
         local bundles = {
@@ -71,7 +76,7 @@ return {
             1),
         }
         vim.list_extend(bundles,
-          vim.split(vim.fn.glob("~/.local/share/nvim/vscode-java-test/server/*.jar", 1), "\n"))
+          vim.split(vim.fn.glob("~/.local/share/nvim/java-debug/vscode-java-test/server/*.jar", 1), "\n"))
 
         -- return the server config
         return {

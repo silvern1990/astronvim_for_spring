@@ -20,6 +20,7 @@ return {
             if opts.root_dir and opts.root_dir ~= ""
             then
               require("jdtls").start_or_attach(opts)
+              require("jdtls.dap").setup_dap_main_class_configs()
               require("todo-comments").setup()
             end
           end,
@@ -157,6 +158,9 @@ return {
         -- debugging key map -- 
         ["<leader>dV"] = { function() require'dapui'.float_element('console', {width=260, height=100, enter=true}) end, desc = "float console window" },
         ["<leader>dR"] = { function() require("dap").repl.toggle({height=15}) end, desc = "Toggle REPL" },
+        -- chatGPT key map --
+        ["<leader>m"] = { desc = "chatGPT" },
+        ["<leader>mc"] = { function() vim.cmd('ChatGPT') end, desc = "chatGPT" },
       },
       v = {
         -- chatGPT key map --
@@ -165,10 +169,15 @@ return {
       },
     }
   },
-  -- colorscheme = "nightfly",
+  colorscheme = "kanagawa-wave",
   plugins = {
     "morhetz/gruvbox", -- color scheme
-    -- "folke/tokyonight.nvim", -- color scheme
+    {
+      "folke/tokyonight.nvim",
+    },
+    {
+      "rebelot/kanagawa.nvim",
+    },
     -- {
     --     "danymat/neogen",
     --     dependencies = "nvim-treesitter/nvim-treesitter",
@@ -183,6 +192,9 @@ return {
         require("catppuccin").setup{}
       end,
     }, --color scheme
+    {
+        "navarasu/onedark.nvim",
+    },
     "bluz71/vim-nightfly-colors", -- color scheme
     "m4xshen/hardtime.nvim", -- offer good command for workflow
     "mfussenegger/nvim-jdtls", -- load jdtls on module
@@ -208,7 +220,7 @@ return {
       event = "VeryLazy",
       config = function()
         require("chatgpt").setup({
-          api_key_cmd = "gpg --decrypt " .. home .. "/.chatgptKey",
+          api_key_cmd = "cat " .. home .. "/.chatgptKey",
           actions_paths = {"~/.config/nvim/lua/user/chatGPT/actions.json"}
           -- openai_params = {
           --   model = 'gpt-4-1106-preview',

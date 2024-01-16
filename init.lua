@@ -20,7 +20,6 @@ return {
             if opts.root_dir and opts.root_dir ~= ""
             then
               require("jdtls").start_or_attach(opts)
-              require("jdtls.dap").setup_dap_main_class_configs()
               require("todo-comments").setup()
             end
           end,
@@ -226,14 +225,12 @@ return {
       config = function()
         require("chatgpt").setup({
           api_key_cmd = "cat " .. home .. "/.chatgptKey",
-          actions_paths = {"~/.config/nvim/lua/user/chatGPT/actions.json"}
-          -- openai_params = {
-          --   model = 'gpt-4-1106-preview',
-          --   max_tokens = 4096,
-          -- },
+          actions_paths = {"~/.config/nvim/lua/user/chatGPT/actions.json"},
+          openai_params = {
+            max_tokens = 3000,
+          },
           -- openai_edit_params = {
-          --   model = "gpt-4-1106-preview",
-          --   max_tokens = 128000,
+          --   max_tokens = 3000,
           -- },
         })
       end,

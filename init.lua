@@ -241,6 +241,12 @@ return {
       }
     },
     {
+      "jay-babu/mason-nvim-dap.nvim",
+      opts = {
+        ensure_installed = {"codelldb"}
+      }
+    },
+    {
       "rcarriga/nvim-dap-ui",
       config = {
         layouts = {

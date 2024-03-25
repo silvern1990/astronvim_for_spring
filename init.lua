@@ -171,6 +171,10 @@ return {
         ["<leader>m"] = { desc = "chatGPT"},
         ["<leader>mt"] = { function() vim.cmd('ChatGPTRun translate') end, desc = "translate"},
       },
+      i = {
+        ["<C-E>"] = { "<Esc>A" },
+        ["<C-A>"] = { "<Esc>I" },
+      },
     }
   },
   colorscheme = "kanagawa-wave",

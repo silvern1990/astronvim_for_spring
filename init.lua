@@ -21,6 +21,13 @@ return {
             then
               require("jdtls").start_or_attach(opts)
               require("todo-comments").setup()
+              require("telescope").setup{
+                defaults = {
+                  file_ignore_patterns = {
+                    "resources"
+                  }
+                }
+              }
             end
           end,
         })
@@ -160,7 +167,7 @@ return {
         ["<leader>rd"] = { function() require'dapui'.setup({layouts = { { elements = { { id = "scopes", size = 0.2 }, { id = "breakpoints", size = 0.2 }, { id = "stacks", size = 0.2 }, { id = "watches", size = 0.2 }, }, position = "left", size = 30 }, { elements = { { id = "console", size = 1 }, }, position = "bottom", size = 10 }}}) end, desc = "reset dapui"},
         ["<leader>rj"] = { function() require("jdtls.dap").setup_dap_main_class_configs({config_overrides = { vmArgs = '-Dspring.profiles.active=dev'}}) end, desc = "find main class for java"},
         -- debugging key map -- 
-        ["<leader>dV"] = { function() require'dapui'.float_element('console', {width=260, height=100, enter=true}) end, desc = "float console window" },
+        ["<leader>dV"] = { function() require'dapui'.float_element('console', {width=160, enter=true}) end, desc = "float console window" },
         ["<leader>dR"] = { function() require("dap").repl.toggle({height=15}) end, desc = "Toggle REPL" },
         -- chatGPT key map --
         ["<leader>m"] = { desc = "chatGPT" },
@@ -274,6 +281,6 @@ return {
           }
         }
       },
-    }
+    },
   },
 }

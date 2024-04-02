@@ -14,7 +14,7 @@ return {
     setup_handlers = {
       -- add custom handler
       pyright = function(_, opts)
-        require'lspconfig'.pyright.setup{}
+        require'lspconfig'.pyright.setup(opts)
         require'dap-python'.setup('~/.local/share/nvim/.virtualenvs/debugpy/bin/python')
       end,
 

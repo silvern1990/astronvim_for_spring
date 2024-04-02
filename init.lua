@@ -13,6 +13,11 @@ return {
     },
     setup_handlers = {
       -- add custom handler
+      pyright = function(_, opts)
+        require'lspconfig'.pyright.setup{}
+        require'dap-python'.setup('~/.local/share/nvim/.virtualenvs/debugpy/bin/python')
+      end,
+
       jdtls = function(_, opts)
         vim.api.nvim_create_autocmd("Filetype", {
           pattern = "java",
@@ -32,6 +37,7 @@ return {
             end
           end,
         })
+
         vim.api.nvim_create_autocmd("BufWritePost", {
           pattern={"*.css", "*.html", "*.js", "*.xml"},
           callback = function() -- auto build for thymeleaf template 
@@ -114,6 +120,7 @@ return {
           },
         }
       end,
+
     },
     mappings = {
       n = {
@@ -257,6 +264,9 @@ return {
       opts = {
         ensure_installed = {"codelldb"}
       }
+    },
+    {
+      "mfussenegger/nvim-dap-python",
     },
     {
       "rcarriga/nvim-dap-ui",

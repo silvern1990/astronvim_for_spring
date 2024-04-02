@@ -8,8 +8,12 @@ package {{_lua:vim.fn.expand("%:p"):sub(vim.fn.expand('%:p'):find('/src/.*/java/
 import lombok.Getter;
 import lombok.Setter;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 @Getter
 @Setter
+@JsonInclude(Include.NON_NULL)
 public class {{_file_name_}} {
     {{_cursor_}}
 }

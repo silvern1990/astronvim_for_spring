@@ -138,34 +138,7 @@ return {
         ["<leader>jtm"] = { function() vim.cmd('Template mybatis') end, desc = "mybatis Template"},
         ["<leader>jte"] = { function() vim.cmd('Template enum') end, desc = "enum class Template"},
         ["<leader>jtv"] = { function() vim.cmd('Template vo') end, desc = "value object Template"},
-        ["<leader>jtf"] = { function()
-          -- Function to get the word under the cursor
-          local line = vim.fn.getline('.')
-          local col = vim.fn.col('.')
-          local start_col = col
-          local end_col = col
-
-          -- Find the start of the word
-          while start_col > 0 and line:sub(start_col, start_col):match('%w') do
-              start_col = start_col - 1
-          end
-
-          -- Find the end of the word
-          while end_col <= #line and line:sub(end_col, end_col):match('%w') do
-              end_col = end_col + 1
-          end
-
-          -- Extract the word
-          local word = line:sub(start_col + 1, end_col - 1)
-          if #word < 1 then
-            vim.notify("not found variable name under cursor", vim.log.levels.ERROR)
-            return
-          end
-
-          vim.api.nvim_command("normal! dd") -- delete variable name line
-
-          vim.cmd('Template var=' .. word .. ' mapping')
-        end, desc = "mapping method Template"},
+        ["<leader>jtf"] = { function() require('javautil').makeRequestMapping() end, desc = "mapping method Template"},
         ["<leader>jr"] = { desc = "generate annotation" },
         ["<leader>jrf"] = { function() require'neogen'.generate({ type = "func" }) end, desc = "generate javadoc annotation for method"},
         ["<leader>Tn"] = { function() require'todo-comments'.jump_next() end, desc = "next-TODO comment" },
@@ -185,6 +158,8 @@ return {
         -- chatGPT key map --
         ["<leader>m"] = { desc = "chatGPT"},
         ["<leader>mt"] = { function() vim.cmd('ChatGPTRun translate') end, desc = "translate"},
+        ["<leader>jjv"] = { function() require'javautil'.mysqlToValueObject() end, desc = "convert ddl for mysql to value object" },
+        ["<leader>jjo"] = { function() require'javautil'.mysqlToObjectMapper() end, desc = "convert ddl for mysql to objectMapper" },
       },
       i = {
         ["<C-E>"] = { "<Esc>A" },
@@ -292,6 +267,9 @@ return {
           }
         }
       },
+    },
+    {
+      "silvern1990/javautil.nvim",
     },
   },
 }

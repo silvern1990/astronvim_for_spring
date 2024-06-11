@@ -14,17 +14,7 @@ local dap_layout = {
               }
             },
             position = "bottom",
-            size = 0.2
-          },
-          {
-            elements = {
-              {
-                id = "console",
-                size = 1
-              },
-            },
-            position = "bottom",
-            size = 0.3
+            size = 0.15
           },
         }
       }

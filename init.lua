@@ -26,6 +26,7 @@ return {
       shiftwidth=4,
       tabstop=4,
       softtabstop=4,
+      fileencodings='utf-8,euc-kr',
     },
   },
   lsp = {

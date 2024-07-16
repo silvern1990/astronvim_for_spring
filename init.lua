@@ -6,15 +6,19 @@ local dap_layout = {
             elements = {
               {
                 id = "breakpoints",
-                size = 0.15
+                size = 0.10
+              },
+              {
+                id = "console",
+                size = 0.75
               },
               {
                 id = "repl",
-                size = 0.85
+                size = 0.15
               }
             },
             position = "bottom",
-            size = 0.15
+            size = 0.25
           },
         }
       }
@@ -37,7 +41,7 @@ return {
       -- add custom handler
       pyright = function(_, opts)
         require'lspconfig'.pyright.setup(opts)
-        require'dap-python'.setup('~/.local/share/nvim/.virtualenvs/debugpy/bin/python')
+        require'dap-python'.setup('~/.local/share/.virtualenvs/debugpy/bin/python')
       end,
 
       jdtls = function(_, opts)
@@ -221,7 +225,7 @@ return {
     {
       "williamboman/mason-lspconfig.nvim",
       opts = {
-        ensure_installed = { "jdtls", "html" },
+        ensure_installed = { "jdtls" },
       },
     },
     {

@@ -17,3 +17,12 @@ git clone https://github.com/silvern1990/astronvim_for_spring ~/.config/nvim
 ```shell
 nvim
 ```
+
+## Bug ? 
+
+After installing astrocommunity, when I opened some files using telescope(<Leader>ff),
+I have a issue that I don't see which-key window.
+
+This issue is temporarily resolved by deleting the ~/.local/state/nvim directory, but the same issue repeats.
+
+Although it is cumbersome, to temporarily solve this issue in the editing session, you need to open another file or enter ex mode.

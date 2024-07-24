@@ -1,3 +1,4 @@
+-- if true then return {} end
 -- AstroCore provides a central place to modify mappings, vim options, autocommands, and more!
 -- Configuration documentation can be found with `:h astrocore`
 -- NOTE: We highly recommend setting up the Lua Language Server (`:LspInstall lua_ls`)
@@ -46,17 +47,6 @@ return {
     mappings = {
       -- first key is the mode
       n = {
-        ["<Leader>r"] = { desc = "reset plugin" },
-        -- ["<Leader>rd"] = { function() require'dapui'.setup(dap_layout) end, desc = "reset dapui"},
-        ["<Leader>rj"] = {
-          function()
-            require("jdtls.dap").setup_dap_main_class_configs {
-              config_overrides = { vmArgs = "-Dspring.profiles.active=dev" },
-            }
-          end,
-          desc = "find main class for java",
-        },
-
         ["<Leader>dV"] = {
           function() require("dapui").float_element("console", { width = 160, height = 80, enter = true }) end,
           desc = "float console window",

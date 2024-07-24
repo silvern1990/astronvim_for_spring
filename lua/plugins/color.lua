@@ -1,3 +1,4 @@
+-- if true then return {} end
 return {
   {
     "morhetz/gruvbox",
@@ -8,9 +9,7 @@ return {
   {
     "catppuccin/nvim",
     name = "catppuccin",
-    config = function()
-      require("catppuccin").setup{}
-    end,
+    config = function() require("catppuccin").setup {} end,
   },
   {
     "navarasu/onedark.nvim",
@@ -20,5 +19,5 @@ return {
   },
   {
     "rebelot/kanagawa.nvim",
-  }
+  },
 }

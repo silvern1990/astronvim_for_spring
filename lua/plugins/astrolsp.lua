@@ -1,3 +1,4 @@
+-- if true then return {} end
 -- AstroLSP allows you to customize the features in AstroNvim's LSP configuration engine
 -- Configuration documentation can be found with `:h astrolsp`
 -- NOTE: We highly recommend setting up the Lua Language Server (`:LspInstall lua_ls`)
@@ -61,18 +62,15 @@ return {
         vim.api.nvim_create_autocmd("Filetype", {
           pattern = "java",
           callback = function()
-            if opts.root_dir and opts.root_dir ~= "" then
-              -- require("jdtls").start_or_attach(opts)
-              require("todo-comments").setup()
-              require("telescope").setup {
-                defaults = {
-                  file_ignore_patterns = {
-                    "%.jar",
-                    "plugin",
-                  },
+            require("todo-comments").setup()
+            require("telescope").setup {
+              defaults = {
+                file_ignore_patterns = {
+                  "%.jar",
+                  "plugin",
                 },
-              }
-            end
+              },
+            }
           end,
         })
 
@@ -162,7 +160,7 @@ return {
         ["<Leader>Tn"] = { function() require("todo-comments").jump_next() end, desc = "next-TODO comment" },
         ["<Leader>fT"] = { function() vim.cmd "TodoTelescope" end, desc = "Telescope TODO" },
         ["<Leader>r"] = { desc = "reset plugin" },
-        -- ["<Leader>rd"] = { function() require'dapui'.setup(dap_layout) end, desc = "reset dapui"},
+        ["<Leader>rd"] = { function() require("dapui").setup() end, desc = "reset dapui" },
         ["<Leader>rj"] = {
           function()
             require("jdtls.dap").setup_dap_main_class_configs {

@@ -1,53 +1,34 @@
+# AstroNvim Template
 
+**NOTE:** This is for AstroNvim v4+
 
-User Configuration file for using astronvim as spring IDE.
+A template for getting started with [AstroNvim](https://github.com/AstroNvim/AstroNvim)
 
-# apply configuration 
+## 🛠️ Installation
 
-1. move contents of this to ~/.config/nvim/lua/user directory.
+#### Make a backup of your current nvim and shared folder
 
-2. edit init.lua to fit your environments.
-
-
-# Required Install:
-1. java-debug - https://github.com/microsoft/java-debug
-2. <a href="https://github.com/mfussenegger/nvim-jdtls#nvim-dap-setup">vscode-java-test</a> - https://github.com/microsoft/vscode-java-test
-
-
-# Required vim command:
-
-1. :LspInstall jdtls
-2. :LspInstall html
-3. :TSInstall java
-
-
-# For Debugging
-
-have to call setup_dap_main_class_configs() to find main class of project after require"jdtls" is completed
-to do that, insert code calling function
-into ~/.local/share/nvim/lazy/nvim-jdtls/lua/jdtls/setup.lua
-like below example.
-
-```
----@param opts? jdtls.start.opts
-function M.start_or_attach(config, opts)
-  opts = opts or {}
-  assert(config, 'config is required')
-  assert(
-    config.cmd and type(config.cmd) == 'table',
-    'Config must have a `cmd` property and that must be a table. Got: '
-      .. table.concat(config.cmd, ' ')
-  )
-  config.name = 'jdtls'
-  local on_attach = config.on_attach
-  config.on_attach = function(client, bufnr)
-    if on_attach then
-      on_attach(client, bufnr)
-      require("jdtls.dap").setup_dap_main_class_configs()   <----- this code
---    require("jdtls.dap").setup_dap_main_class_configs({config_overrides = { vmArgs = '-Dspring.profiles.active=dev'}}) <-- example of overriding jvm args
-    end
-    add_commands(client, bufnr, opts)
-  end
-
+```shell
+mv ~/.config/nvim ~/.config/nvim.bak
+mv ~/.local/share/nvim ~/.local/share/nvim.bak
+mv ~/.local/state/nvim ~/.local/state/nvim.bak
+mv ~/.cache/nvim ~/.cache/nvim.bak
 ```
 
+#### Create a new user repository from this template
+
+Press the "Use this template" button above to create a new repository to store your user configuration.
+
+You can also just clone this repository directly if you do not want to track your user configuration in GitHub.
+
+#### Clone the repository
+
+```shell
+git clone https://github.com/<your_user>/<your_repository> ~/.config/nvim
+```
+
+#### Start Neovim
+
+```shell
+nvim
+```

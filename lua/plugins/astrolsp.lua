@@ -53,44 +53,10 @@ return {
       -- rust_analyzer = false, -- setting a handler to false will disable the set up of that language server
       -- pyright = function(_, opts) require("lspconfig").pyright.setup(opts) end -- or a custom handler function can be passed
       --
+
       pyright = function(_, opts)
         require("lspconfig").pyright.setup(opts)
         require("dap-python").setup "~/.local/share/.virtualenvs/debugpy/bin/python"
-      end,
-
-      jdtls = function(_, opts)
-
-        require('dapui').setup()
-
-        vim.api.nvim_create_autocmd("Filetype", {
-          pattern = "java",
-          callback = function()
-            require("todo-comments").setup()
-            require("telescope").setup {
-              defaults = {
-                file_ignore_patterns = {
-                  "%.jar",
-                  "plugin",
-                },
-              },
-            }
-          end,
-        })
-
-        vim.api.nvim_create_autocmd("BufWritePost", {
-          pattern = { "*.css", "*.html", "*.js", "*.xml" },
-          callback = function() -- auto build for thymeleaf template
-            local root_dir = require("jdtls.setup").find_root { "mvnw", ".git", "gradlew", "pom.xml", "build.gradle" }
-            if root_dir and root_dir ~= "" then
-              local Job = require "plenary.job"
-              Job:new({
-                command = "./mvnw",
-                args = { "compile" },
-                cwd = root_dir,
-              }):start()
-            end
-          end,
-        })
       end,
     },
     -- Configure buffer local auto commands to add when attaching a language server

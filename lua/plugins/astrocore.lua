@@ -23,6 +23,12 @@ return {
       virtual_text = true,
       underline = true,
     },
+    sessions = {
+      autosave = {
+        last = true,
+        cwd = true,
+      }
+    },
     -- vim options can be configured here
     options = {
       opt = { -- vim.opt.<key>

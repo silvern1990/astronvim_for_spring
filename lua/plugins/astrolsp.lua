@@ -138,6 +138,9 @@ return {
           end,
           desc = "find main class for java",
         },
+        ["<Leader>lR"] = {
+          function () require('telescope.builtin').lsp_references() end, desc = "lsp references in telescope"
+        },
       },
       v = {
         ["<Leader>j"] = { name = "java" },

@@ -12,16 +12,6 @@ return {
   },
   {
     "mfussenegger/nvim-jdtls",
-    opts = {
-      on_attach = function(...)
-        require("jdtls").setup_dap { 
-          hotcodereplace = "auto",
-          config_overrides = {
-            vmArgs = "-Djava.net.preferIPv4Stack=true",
-          }
-        }
-      end,
-    },
     config = function(_, opts)
       -- setup autocmd on filetype detect java
       vim.api.nvim_create_autocmd("Filetype", {
@@ -68,7 +58,11 @@ return {
           local client = vim.lsp.get_client_by_id(args.data.client_id)
           -- ensure that only the jdtls client is activated
           if client.name == "jdtls" then 
-            require("jdtls.dap").setup_dap_main_class_configs() 
+            require("jdtls.dap").setup_dap_main_class_configs({
+              config_overrides = {
+                vmArgs = "-Djava.net.preferIPv4Stack=true"
+              }
+            }) 
           end
         end,
       })

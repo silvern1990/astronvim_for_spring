@@ -108,7 +108,21 @@ return {
         },
         ["<Leader>jdc"] = {
           function()
-            require("jdtls").test_nearest_method { after_test = function() require("dapui").toggle() end }
+            local root_dir = require("jdtls.setup").find_root { "mvnw", ".git", "gradlew", "pom.xml", "build.gradle" }
+            local project_name = root_dir:match('.*/(.*)')
+            local vmArgs = "-Djava.net.preferIPv4Stack=true"
+
+            if project_name == 'SMART_PEM7' or project_name == 'GS_ASAN_SVBS' then
+              vmArgs = vmArgs .. ' -Dkey.file.path=' .. root_dir .. '/testKey -Dfile.dec.key=88cbd881097ca61985320c65a8e36061'
+            end
+
+
+            require("jdtls").test_nearest_method {
+              config_overrides = {
+                vmArgs = vmArgs,
+              },
+              after_test = function() require("dapui").toggle() end 
+            }
           end,
           desc = "test method",
         },

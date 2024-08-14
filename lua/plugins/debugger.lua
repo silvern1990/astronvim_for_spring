@@ -25,7 +25,7 @@ return {
               defaults = {
                 file_ignore_patterns = {
                   "%.jar",
-                  "plugin",
+                  "static/plugin",
                 },
               },
             }
@@ -58,11 +58,22 @@ return {
           local client = vim.lsp.get_client_by_id(args.data.client_id)
           -- ensure that only the jdtls client is activated
           if client.name == "jdtls" then 
+
+            local root_dir = require("jdtls.setup").find_root { "mvnw", ".git", "gradlew", "pom.xml", "build.gradle" }
+            local project_name = root_dir:match('.*/(.*)')
+            local vmArgs = "-Djava.net.preferIPv4Stack=true"
+
+
+            if project_name == 'SMART_PEM7' or project_name == 'GS_ASAN_SVBS' then
+              vmArgs = vmArgs .. ' -Dkey.file.path=' .. root_dir .. '/testKey -Dfile.dec.key=88cbd881097ca61985320c65a8e36061'
+            end
+
             require("jdtls.dap").setup_dap_main_class_configs({
               config_overrides = {
-                vmArgs = "-Djava.net.preferIPv4Stack=true"
-              }
+                vmArgs = vmArgs,
+              },
             }) 
+
           end
         end,
       })

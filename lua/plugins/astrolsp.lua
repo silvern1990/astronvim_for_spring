@@ -132,8 +132,8 @@ return {
         ["<Leader>jtc"] = { function() vim.cmd "Template controller" end, desc = "controller Template" },
         ["<Leader>jts"] = { function() vim.cmd "Template service" end, desc = "service Template" },
         ["<Leader>jtm"] = { function() vim.cmd "Template mybatis" end, desc = "mybatis Template" },
-        ["<Leader>jte"] = { function() vim.cmd "Template enum" end, desc = "enum class Template" },
-        ["<Leader>jtv"] = { function() vim.cmd "Template vo" end, desc = "value object Template" },
+        ["<Leader>jte"] = { function() local data_type = vim.fn.input("Enter data type: ") vim.cmd("Template var=" .. data_type ..  " enum") end, desc = "enum class Template" },
+        ["<Leader>jtv"] = { function() vim.cmd("Template vo") end, desc = "value object Template" },
         ["<Leader>jtf"] = { function() require("javautil").makeRequestMapping() end, desc = "mapping method Template" },
         ["<Leader>jr"] = { desc = "generate annotation" },
         ["<Leader>jrf"] = {

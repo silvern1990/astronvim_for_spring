@@ -19,7 +19,7 @@ return {
     config = function()
       require("template").setup {
         temp_dir = "~/.config/nvim/lua/user/template",
-        author = "silvern1990",
+        author = "Park-Jin-Su",
         email = "silvern1990@gmail.com",
       }
     end,

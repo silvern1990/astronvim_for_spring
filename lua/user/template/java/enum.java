@@ -10,14 +10,14 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum {{_file_name_}} {
 
-    private final int value;
+    private final {{_variable_}} value;
 
-    {{_file_name_}}(int value){
+    {{_file_name_}}({{_variable_}} value){
         this.value = value;
     }
 
     @JsonValue
-    public int getValue(){
+    public {{_variable_}} getValue(){
         return value;
     }
 }

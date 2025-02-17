@@ -6,4 +6,18 @@ return {
   --   dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
   --   opts = {}
   -- },
+    {
+        "nvim-neo-tree/neo-tree.nvim",
+        -- opts = {
+        --     buffers = {
+        --         follow_current_file = {
+        --             enabled = false,
+        --             leave_dirs_open = false
+        --         },
+        --     }
+        -- }
+        opts = function(_, opts)
+            -- opts.filesystem.follow_current_file.enabled = false
+        end
+    },
 }

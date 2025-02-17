@@ -143,7 +143,38 @@ return {
         ["<Leader>Tn"] = { function() require("todo-comments").jump_next() end, desc = "next-TODO comment" },
         ["<Leader>fT"] = { function() vim.cmd "TodoTelescope" end, desc = "Telescope TODO" },
         ["<Leader>r"] = { desc = "reset plugin" },
-        ["<Leader>rd"] = { function() require("dapui").setup() end, desc = "reset dapui" },
+        ["<Leader>rd"] = { function() 
+          config = {
+            layouts = { {
+              elements = { {
+                id = "scopes",
+                size = 0.25
+              }, {
+                  id = "breakpoints",
+                  size = 0.25
+                }, {
+                  id = "stacks",
+                  size = 0.25
+                }, {
+                  id = "watches",
+                  size = 0.25
+                } },
+              position = "right",
+              size = 40
+            }, {
+                elements = { {
+                  id = "repl",
+                  size = 0.5
+                }, {
+                    id = "console",
+                    size = 0.5
+                  } },
+                position = "bottom",
+                size = 20
+              } },
+          }
+          require("dapui").setup(config) 
+        end, desc = "reset dapui" },
         ["<Leader>rj"] = {
           function()
             require("jdtls.dap").setup_dap_main_class_configs {
@@ -159,6 +190,12 @@ return {
       v = {
         ["<Leader>j"] = { name = "java" },
         ["<Leader>jj"] = { desc = "convert" },
+        ["<Leader>jjq"] = { 
+          function()
+            require("javautil").columnToMybatisValue()
+          end,
+          desc = "make insert query value" 
+        },
         ["<Leader>jjv"] = {
           function() require("javautil").mysqlToValueObject() end,
           desc = "convert ddl for mysql to value object",

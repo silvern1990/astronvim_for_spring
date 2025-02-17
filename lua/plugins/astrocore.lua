@@ -36,7 +36,7 @@ return {
         number = true, -- sets vim.opt.number
         spell = false, -- sets vim.opt.spell
         signcolumn = "yes", -- sets vim.opt.signcolumn to yes
-        wrap = false, -- sets vim.opt.wrap
+        wrap = true, -- sets vim.opt.wrap
         shiftwidth = 4,
         tabstop = 4,
         softtabstop = 4,
@@ -58,6 +58,10 @@ return {
           desc = "float console window",
         },
         ["<Leader>dR"] = { function() require("dap").repl.toggle { height = 15 } end, desc = "Toggle REPL" },
+        ["<A-h>"] = { function() require("smart-splits").resize_left() end, desc = "resize_window"},
+        ["<A-j>"] = { function() require("smart-splits").resize_down() end, desc = "resize_window"},
+        ["<A-k>"] = { function() require("smart-splits").resize_up() end, desc = "resize_window"},
+        ["<A-l>"] = { function() require("smart-splits").resize_right() end, desc = "resize_window"}
       },
       i = {
         ["<C-E>"] = { "<Esc>A" },

@@ -1,4 +1,3 @@
--- if true then return {} end
 -- AstroLSP allows you to customize the features in AstroNvim's LSP configuration engine
 -- Configuration documentation can be found with `:h astrolsp`
 -- NOTE: We highly recommend setting up the Lua Language Server (`:LspInstall lua_ls`)
@@ -19,7 +18,7 @@ return {
     formatting = {
       -- control auto formatting on save
       format_on_save = {
-        enabled = false, -- enable or disable format on save globally
+        enabled = true, -- enable or disable format on save globally
         allow_filetypes = { -- enable format on save for specified filetypes only
           -- "go",
         },
@@ -49,15 +48,10 @@ return {
     handlers = {
       -- a function without a key is simply the default handler, functions take two parameters, the server name and the configured options table for that server
       -- function(server, opts) require("lspconfig")[server].setup(opts) end
+
       -- the key is the server that is being setup with `lspconfig`
       -- rust_analyzer = false, -- setting a handler to false will disable the set up of that language server
       -- pyright = function(_, opts) require("lspconfig").pyright.setup(opts) end -- or a custom handler function can be passed
-      --
-
-      pyright = function(_, opts)
-        require("lspconfig").pyright.setup(opts)
-        require("dap-python").setup "~/.local/share/.virtualenvs/debugpy/bin/python"
-      end,
     },
     -- Configure buffer local auto commands to add when attaching a language server
     autocmds = {
@@ -108,7 +102,23 @@ return {
         },
         ["<Leader>jdc"] = {
           function()
-            require("jdtls").test_nearest_method { after_test = function() require("dapui").toggle() end }
+            local root_dir = require("jdtls.setup").find_root { "mvnw", ".git", "gradlew", "pom.xml", "build.gradle" }
+            local project_name = root_dir:match ".*/(.*)"
+            local vmArgs = "-Djava.net.preferIPv4Stack=true"
+
+            if project_name == "SMART_PEM7" or project_name == "GS_ASAN_SVBS" then
+              vmArgs = vmArgs
+                .. " -Dkey.file.path="
+                .. root_dir
+                .. "/testKey -Dfile.dec.key=88cbd881097ca61985320c65a8e36061"
+            end
+
+            require("jdtls").test_nearest_method {
+              config_overrides = {
+                vmArgs = vmArgs,
+              },
+              after_test = function() require("dapui").toggle() end,
+            }
           end,
           desc = "test method",
         },
@@ -118,7 +128,13 @@ return {
         ["<Leader>jtc"] = { function() vim.cmd "Template controller" end, desc = "controller Template" },
         ["<Leader>jts"] = { function() vim.cmd "Template service" end, desc = "service Template" },
         ["<Leader>jtm"] = { function() vim.cmd "Template mybatis" end, desc = "mybatis Template" },
-        ["<Leader>jte"] = { function() vim.cmd "Template enum" end, desc = "enum class Template" },
+        ["<Leader>jte"] = {
+          function()
+            local data_type = vim.fn.input "Enter data type: "
+            vim.cmd("Template var=" .. data_type .. " enum")
+          end,
+          desc = "enum class Template",
+        },
         ["<Leader>jtv"] = { function() vim.cmd "Template vo" end, desc = "value object Template" },
         ["<Leader>jtf"] = { function() require("javautil").makeRequestMapping() end, desc = "mapping method Template" },
         ["<Leader>jr"] = { desc = "generate annotation" },
@@ -129,7 +145,52 @@ return {
         ["<Leader>Tn"] = { function() require("todo-comments").jump_next() end, desc = "next-TODO comment" },
         ["<Leader>fT"] = { function() vim.cmd "TodoTelescope" end, desc = "Telescope TODO" },
         ["<Leader>r"] = { desc = "reset plugin" },
-        ["<Leader>rd"] = { function() require("dapui").setup() end, desc = "reset dapui" },
+        ["<Leader>rd"] = {
+          function()
+            config = {
+              layouts = {
+                {
+                  elements = {
+                    {
+                      id = "scopes",
+                      size = 0.25,
+                    },
+                    {
+                      id = "breakpoints",
+                      size = 0.25,
+                    },
+                    {
+                      id = "stacks",
+                      size = 0.25,
+                    },
+                    {
+                      id = "watches",
+                      size = 0.25,
+                    },
+                  },
+                  position = "right",
+                  size = 40,
+                },
+                {
+                  elements = {
+                    {
+                      id = "repl",
+                      size = 0.5,
+                    },
+                    {
+                      id = "console",
+                      size = 0.5,
+                    },
+                  },
+                  position = "bottom",
+                  size = 20,
+                },
+              },
+            }
+            require("dapui").setup(config)
+          end,
+          desc = "reset dapui",
+        },
         ["<Leader>rj"] = {
           function()
             require("jdtls.dap").setup_dap_main_class_configs {
@@ -139,12 +200,17 @@ return {
           desc = "find main class for java",
         },
         ["<Leader>lR"] = {
-          function () require('telescope.builtin').lsp_references() end, desc = "lsp references in telescope"
+          function() require("telescope.builtin").lsp_references() end,
+          desc = "lsp references in telescope",
         },
       },
       v = {
         ["<Leader>j"] = { name = "java" },
         ["<Leader>jj"] = { desc = "convert" },
+        ["<Leader>jjq"] = {
+          function() require("javautil").columnToMybatisValue() end,
+          desc = "make insert query value",
+        },
         ["<Leader>jjv"] = {
           function() require("javautil").mysqlToValueObject() end,
           desc = "convert ddl for mysql to value object",

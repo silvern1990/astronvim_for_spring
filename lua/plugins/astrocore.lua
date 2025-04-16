@@ -43,6 +43,9 @@ return {
         spell = false, -- sets vim.opt.spell
         signcolumn = "yes", -- sets vim.opt.signcolumn to yes
         wrap = true, -- sets vim.opt.wrap
+        shiftwidth = 4,
+        tabstop = 4,
+        softtabstop = 4,
         fileencodings = "utf-8,euc-kr",
       },
       g = { -- vim.g.<key>

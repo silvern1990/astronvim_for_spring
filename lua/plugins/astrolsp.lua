@@ -91,6 +91,7 @@ return {
             return client.supports_method "textDocument/semanticTokens/full" and vim.lsp.semantic_tokens ~= nil
           end,
         },
+        ["gI"] = { function() vim.lsp.buf.implementation() end, desc = "go to implementation"},
         ["<Leader>j"] = { name = "Java" },
         ["<Leader>ji"] = { function() require("jdtls").organize_imports() end, desc = "organize_imports" },
         ["<Leader>jd"] = { desc = "junit test" },

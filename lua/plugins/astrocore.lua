@@ -43,6 +43,10 @@ return {
         spell = false, -- sets vim.opt.spell
         signcolumn = "yes", -- sets vim.opt.signcolumn to yes
         wrap = true, -- sets vim.opt.wrap
+        guicursor = {
+          "i-ci:hor20",
+          "r-cr:hor20"
+        },
         shiftwidth = 4,
         tabstop = 4,
         softtabstop = 4,

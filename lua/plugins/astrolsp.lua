@@ -144,7 +144,6 @@ return {
           desc = "generate javadoc annotation for method",
         },
         ["<Leader>Tn"] = { function() require("todo-comments").jump_next() end, desc = "next-TODO comment" },
-        ["<Leader>fT"] = { function() vim.cmd "TodoTelescope" end, desc = "Telescope TODO" },
         ["<Leader>r"] = { desc = "reset plugin" },
         ["<Leader>rd"] = {
           function()

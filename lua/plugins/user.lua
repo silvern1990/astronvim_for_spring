@@ -217,4 +217,27 @@ return {
       },
     },
   },
+
+  {
+    "folke/snacks.nvim",
+    ---@type snacks.Config
+    keys = {
+      {"<leader>ff", function() Snacks.picker.files({
+        exclude = {
+          "*.class",
+          "/static/plugin",
+          "*.min.css",
+          "*.min.js",
+          "*.jar"
+        }
+      }) end, desc = "Find Files"},
+      {"<leader>fT", function() Snacks.picker.todo_comments({
+        exclude = {
+          "**/static/plugin/**/*.js",
+          "*.min.css",
+          "*.min.js",
+        }
+      }) end, desc = "TODO"}
+    }
+  },
 }

@@ -11,13 +11,13 @@ return {
     opts = {
       -- add any opts here
       -- for example
-      provider = "claude",
+      provider = "openai",
       openai = {
-        endpoint = "https://api.anthropic.com",
-        model = "claude-3-5-sonnet-20241022", -- your desired model (or use gpt-4o, etc.)
+        endpoint = "https://api.openai.com/v1",
+        model = "gpt-4o", -- your desired model (or use gpt-4o, etc.)
         timeout = 30000, -- Timeout in milliseconds, increase this for reasoning models
         temperature = 0,
-        max_tokens=4096, -- Increase this to include reasoning tokens (for reasoning models)
+        max_completion_tokens = 16384, -- Increase this to include reasoning tokens (for reasoning models)
         --reasoning_effort = "medium", -- low|medium|high, only used for reasoning models
       },
     },
@@ -151,17 +151,7 @@ return {
           local client = vim.lsp.get_client_by_id(args.data.client_id)
           -- ensure that only the jdtls client is activated
           if client.name == "jdtls" then
-            local root_dir = require("jdtls.setup").find_root { "mvnw", ".git", "gradlew", "pom.xml", "build.gradle" }
-            local project_name = root_dir:match ".*/(.*)"
             local vmArgs = "-Djava.net.preferIPv4Stack=true"
-
-            if project_name == "SMART_PEM7" or project_name == "GS_ASAN_SVBS" then
-              vmArgs = vmArgs
-              .. " -Dkey.file.path="
-              .. root_dir
-              .. "/testKey -Dfile.dec.key=88cbd881097ca61985320c65a8e36061"
-            end
-
             require("jdtls.dap").setup_dap_main_class_configs {
               config_overrides = {
                 vmArgs = vmArgs,

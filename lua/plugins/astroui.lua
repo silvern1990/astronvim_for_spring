@@ -11,11 +11,12 @@ return {
   opts = {
     -- change colorscheme
     -- colorscheme = "nightfly",
-    colorscheme = "gruvbox",
+    colorscheme = "catppuccin",
     termguicolors = true,
     -- AstroUI allows you to easily modify highlight groups easily for any and all colorschemes
     highlights = {
       init = { -- this table overrides highlights in all themes
+        LineNr = { bg = "NONE", ctermbg = "NONE"},
         Normal = { bg = "None", ctermbg = "NONE" },
         NormalNC = { bg = "NONE", ctermbg = "NONE"},
         EndOfBuffer = { bg = "NONE", ctermbg = "NONE"},

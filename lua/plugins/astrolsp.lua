@@ -29,6 +29,7 @@ return {
       disabled = { -- disable formatting capabilities for the listed language servers
         -- disable lua_ls formatting capability if you want to use StyLua to format your lua code
         -- "lua_ls",
+        "lemminx",
       },
       timeout_ms = 1000, -- default format timeout
       -- filter = function(client) -- fully override the default formatting function
@@ -74,6 +75,24 @@ return {
           end,
         },
       },
+      jdtls = {
+        {
+          event = {"BufWritePost"},
+          desc = "",
+          callback = function(args)
+            local root_dir = require("jdtls.setup").find_root({"mvnw", ".git", "gradlew", "pom.xml", "build.gradle"})
+            if root_dir and root_dir ~= ""
+              then
+              local Job = require("plenary.job")
+              Job:new{
+                command = "./mvnw",
+                args = { "compile" },
+                cwd = root_dir,
+              }:start()
+            end
+          end
+        },
+      }
     },
     -- mappings to be set up on attaching of a language server
     mappings = {

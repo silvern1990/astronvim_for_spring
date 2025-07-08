@@ -1,6 +1,6 @@
     @PostMapping("/{{_variable_}}.do")
-    public ResultVO {{_variable_}}(){
-        ResultVO resultVO = new ResultVO();
-        {{_cursor_}}
-        return resultVO;
+    public ResultDto {{_variable_}}(){
+        ResultDto Result = new ResultDto();
+
+        return Result;
     }

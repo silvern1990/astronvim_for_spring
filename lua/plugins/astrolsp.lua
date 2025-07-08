@@ -80,7 +80,7 @@ return {
           event = {"BufWritePost"},
           desc = "",
           callback = function(args)
-            local root_dir = require("jdtls.setup").find_root({"mvnw", ".git", "gradlew", "pom.xml", "build.gradle"})
+            local root_dir = require("jdtls.setup").find_root({"mvnw", "gradlew", "pom.xml", "build.gradle"})
             if root_dir and root_dir ~= ""
               then
               local Job = require("plenary.job")

@@ -45,9 +45,18 @@ return {
               if _G['react_project'] and _G['react_project'] ~= 'not found' then
                 local Job = require('plenary.job')
                 Job:new{
-                  command = "npm",
-                  args = { "--prefix", _G['react_project'], "run", "build", "&&", "./mvnw", "compile" },
-                  cwd = "."
+                  command = "bash",
+                  args = { "-c", "npm --prefix " .. _G['react_project'] .. " run build && ./mvnw compile" },
+                  cwd = ".",
+                  on_exit = function(j, return_val)
+                    vim.schedule(function()
+                      if return_val == 0 then
+                        vim.notify("✅ build completed!", vim.log.levels.INFO)
+                      else
+                        vim.notify("❌ build fail!\n" .. table.concat(j:stderr_result(), "\n"), vim.log.levels.ERROR)
+                      end
+                    end)
+                  end
                 }:start()
               end
 

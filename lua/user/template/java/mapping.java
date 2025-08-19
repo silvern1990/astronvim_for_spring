@@ -1,6 +1,6 @@
     @PostMapping("/{{_variable_}}.do")
     public ResultDto {{_variable_}}(){
-        ResultDto Result = new ResultDto();
+        ResultDto result = new ResultDto();
 
-        return Result;
+        return result;
     }

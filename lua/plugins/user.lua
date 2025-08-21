@@ -51,10 +51,10 @@ return {
                   on_exit = function(j, return_val)
                     vim.schedule(function()
                       if return_val == 0 then
-                        vim.fn.system("notify-send 'vim' '✅ build completed!' && canberra-gtk-play -i message")
+                        vim.fn.system("notify-send 'vim' '✅ build completed!' && canberra-gtk-play -i message --volume=1")
                       else
                         local error_msg = "❌ build fail!\n" .. table.concat(j:stderr_result(), "\n")
-                        vim.fn.system("notify-send -u critical '" .. error_msg .. "' && canberra-gtk-play -i message")
+                        vim.fn.system("notify-send -u critical '" .. error_msg .. "' && canberra-gtk-play -i message --volume=1")
                       end
                     end)
                   end

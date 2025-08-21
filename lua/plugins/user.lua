@@ -10,7 +10,7 @@ local function find_app_jsx_dir(path)
       local attr = lfs.attributes(full_path)
 
       if attr then
-        if attr.mode == "file" and file == "App.jsx" then
+        if attr.mode == "file" and file == "App.js" then
           return path:gsub("/src", "")
         elseif attr.mode == "directory" then
           local found = find_app_jsx_dir(full_path)
@@ -33,7 +33,7 @@ return {
         react_build = {
           {
             event = "BufWritePost",
-            pattern = "*.jsx",
+            pattern = "*.js",
             callback = function()
               if not _G['react_project'] then
                 _G['react_project'] = find_app_jsx_dir(".")
@@ -51,9 +51,10 @@ return {
                   on_exit = function(j, return_val)
                     vim.schedule(function()
                       if return_val == 0 then
-                        vim.notify("✅ build completed!", vim.log.levels.INFO)
+                        vim.fn.system("notify-send 'vim' '✅ build completed!' && canberra-gtk-play -i message")
                       else
-                        vim.notify("❌ build fail!\n" .. table.concat(j:stderr_result(), "\n"), vim.log.levels.ERROR)
+                        local error_msg = "❌ build fail!\n" .. table.concat(j:stderr_result(), "\n")
+                        vim.fn.system("notify-send -u critical '" .. error_msg .. "' && canberra-gtk-play -i message")
                       end
                     end)
                   end

@@ -338,6 +338,7 @@ return {
         toggle = function() require("dap-view").toggle() end,
       }
 
+
     end
   },
 }

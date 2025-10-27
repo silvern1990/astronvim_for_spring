@@ -13,7 +13,5 @@ I confirmed that it works if I manually download and compile the latest source o
 
 ### On MacOS, nvim-dap-view not work 
 
-nvim-dap-view not work in MacOS because of missing of lua 5.1.
-
-brew could not support lua5.1 install, instead of making symlink of lua5.1 to luajit
-
+nvim-dap-view does not work on macOS because Lua 5.1 is missing.
+Homebrew does not support installing Lua 5.1, so instead, you can make a symlink from luajit to lua5.1.

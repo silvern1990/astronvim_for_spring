@@ -221,7 +221,7 @@ return {
           desc = "find main class for java",
         },
         ["<Leader>lR"] = {
-          function() require("telescope.builtin").lsp_references() end,
+          function() require('snacks').picker.lsp_references() end,
           desc = "lsp references in telescope",
         },
       },

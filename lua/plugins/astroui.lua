@@ -25,6 +25,7 @@ return {
         NeoTreeTabSeparatorInactive = { bg = "NONE", ctermbg = "NONE" },
 
         LineNr = { bg = "NONE", ctermbg = "NONE", fg = "#ababab"},
+        CursorLine = { bg = "#332221", ctermbg = "NONE" },
         Normal = { bg = "NONE", ctermbg = "NONE" },
         NormalFloat = { bg = "NONE", ctermbg = "NONE" },
         NormalNC = { bg = "NONE", ctermbg = "NONE"},

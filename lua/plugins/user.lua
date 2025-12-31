@@ -277,7 +277,11 @@ return {
           "/static/plugin",
           "*.min.css",
           "*.min.js",
-          "*.jar"
+          "*.jar",
+          "*.jpeg",
+          "*.jpg",
+          "*.png",
+          "*.dbm",
         }
       }) end, desc = "Find Files"},
       {"<leader>fT", function() Snacks.picker.todo_comments({
@@ -293,6 +297,12 @@ return {
   --   "https://git.sr.ht/~jcc/vim-sway-nav",
   -- },
   {
+    "rmagatti/auto-session",
+    opts = {
+      auto_save_enabled = true,
+    }
+  },
+  {
     "igorlfs/nvim-dap-view",
     opts = {
       winbar = {
@@ -305,14 +315,62 @@ return {
       local dap = require("dap")
       local dapview = require("dap-view")
 
+      local preserved_console_buf = nil
+
       dap.listeners.after.event_initialized.dapview_config = function()
         dapview.open()
       end
+
+      -- 디버그 세션이 종료되기 전에, 디버그 콘솔 버퍼를 별도의 버퍼에 백업
       dap.listeners.before.event_terminated.dapview_config = function()
-        dapview.close()
+        local s = dap.session()
+        if s and s.term_buf then
+          local lines = vim.api.nvim_buf_get_lines(s.term_buf, 0, -1, false)
+          if not vim.tbl_isempty(lines) then
+            local buf = vim.api.nvim_create_buf(false, true)
+            vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
+
+            vim.bo[buf].buftype = "nofile"
+            vim.bo[buf].bufhidden = "hide"
+            vim.bo[buf].swapfile = false
+            vim.bo[buf].filetype = "dap-view-console"
+
+            preserved_console_buf = buf
+          end
+        end
       end
+
+      -- 디버그 세션이 종료된 후에 저장된 콘솔 버퍼를 dap-view 윈도우에 연결
+      dap.listeners.after.event_terminated.dapview_config = function()
+        if not preserved_console_buf
+          or not vim.api.nvim_buf_is_valid(preserved_console_buf)
+        then
+          return
+        end
+
+        require("dap-view").open()
+
+        vim.schedule(function()
+          local console_win = nil
+          for _, win in ipairs(vim.api.nvim_list_wins()) do
+            local buf = vim.api.nvim_win_get_buf(win)
+            vim.notify(vim.bo[buf].filetype)
+            if vim.bo[buf].filetype == "dap-view" then
+              console_win = win
+            end
+          end
+
+          if not console_win then return end
+
+          vim.wo[console_win].winfixbuf = false
+          vim.api.nvim_win_set_buf(console_win, preserved_console_buf)
+          vim.api.nvim_win_set_cursor(console_win, {vim.api.nvim_buf_line_count(preserved_console_buf), 0})
+          vim.wo[console_win].winfixbuf = true
+        end)
+
+      end
+
       dap.listeners.before.event_exited.dapview_config = function()
-        dapview.close()
       end
 
       dapview.setup(opts)

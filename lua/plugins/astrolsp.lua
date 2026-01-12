@@ -113,6 +113,7 @@ return {
         },
         ["gI"] = { function() vim.lsp.buf.implementation() end, desc = "go to implementation"},
         ["gm"] = { function() require("javautil").jump_to_mapper_xml() end, desc = "jump to Mybatis Mapper"},
+        ["gM"] = { function() require("javautil").jump_to_endpoint_handler() end, desc = "jump to endpoint"},
         ["<Leader>j"] = { name = "Java" },
         ["<Leader>ji"] = { function() require("jdtls").organize_imports() end, desc = "organize_imports" },
         ["<Leader>jd"] = { desc = "junit test" },

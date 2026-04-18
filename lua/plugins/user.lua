@@ -79,6 +79,14 @@ return {
       { "<leader>am", "<cmd>ClaudeCodeSelectModel<cr>", desc = "Select Claude model" },
       { "<leader>ab", "<cmd>ClaudeCodeAdd %<cr>", desc = "Add current buffer" },
       { "<leader>as", "<cmd>ClaudeCodeSend<cr>", mode = "v", desc = "Send to Claude" },
+    },
+    opts = {
+      diff_opts = {
+        layout = "horizontal",
+        open_in_new_tab = true,
+        keep_terminal_focus = false,
+        hide_terminal_in_new_tab = false,
+      }
     }
   },
   {

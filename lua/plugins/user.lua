@@ -107,6 +107,13 @@ return {
   {
     "silvern1990/javautil.nvim",
   },
+  {
+    "VidocqH/lsp-lens.nvim",
+    opts = {
+      enable = true,
+      include_declaration = false,
+    },
+  },
 
   -- color scheme
   {

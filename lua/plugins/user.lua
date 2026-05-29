@@ -68,6 +68,52 @@ return {
     }
   },
   {
+    "mfussenegger/nvim-dap",
+    config = function(plugin, opts)
+
+      require("astronvim.plugins.configs.nvim-dap")(plugin, opts)
+
+      local dap = require("dap")
+
+      dap.adapters["pwa-node"] = {
+        type = "server",
+        host = "127.0.0.1",
+        port = "${port}",
+        executable = {
+          command = "node",
+          args = {
+            "/Users/zero/Downloads/js-debug/src/dapDebugServer.js",
+            "${port}",
+            "127.0.0.1",
+          },
+        },
+      }
+
+      for _, language in ipairs({ "typescript", "javascript" }) do
+        dap.configurations[language] = {
+          {
+            type = "pwa-node",
+            request = "launch",
+            name = "Electron: Main Process",
+            cwd = "${workspaceFolder}",
+            runtimeExecutable = "${workspaceFolder}/node_modules/.bin/electron",
+            runtimeArgs = { "." },
+            sourceMaps = true,
+            skipFiles = {"<node_internals>/**" },
+          },
+          {
+            type = "pwa-node",
+            request = "attach",
+            name = "Electron: Attach (port 5858)",
+            port = 5858,
+            cwd = "${workspaceFolder}",
+            skipFiles = { "<node_internals>/**" },
+          },
+        }
+      end
+    end
+  },
+  {
     "coder/claudecode.nvim",
     config = true,
     keys = {

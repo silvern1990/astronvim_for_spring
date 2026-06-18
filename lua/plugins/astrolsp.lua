@@ -76,6 +76,7 @@ return {
         },
       },
       jdtls = {
+        cond = function(client) return client.name == "jdtls" end,
         {
           event = {"BufWritePost"},
           desc = "",

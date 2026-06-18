@@ -30,40 +30,40 @@ return {
     opts = {
       autocmds = {
         -- first key is the augroup name
-        react_build = {
-          {
-            event = "BufWritePost",
-            pattern = "*.js",
-            callback = function()
-              if not _G['react_project'] then
-                _G['react_project'] = find_app_jsx_dir(".")
-                if not _G['react_project'] then
-                  _G['react_project'] = 'not found'
-                end
-              end
-
-              if _G['react_project'] and _G['react_project'] ~= 'not found' then
-                local Job = require('plenary.job')
-                Job:new{
-                  command = "bash",
-                  args = { "-c", "npm --prefix " .. _G['react_project'] .. " run build && ./mvnw compile" },
-                  cwd = ".",
-                  on_exit = function(j, return_val)
-                    vim.schedule(function()
-                      if return_val == 0 then
-                        vim.fn.system("notify-send 'vim' '✅ build completed!' && canberra-gtk-play -i message --volume=1")
-                      else
-                        local error_msg = "❌ build fail!\n" .. table.concat(j:stderr_result(), "\n")
-                        vim.fn.system("notify-send -u critical '" .. error_msg .. "' && canberra-gtk-play -i message --volume=1")
-                      end
-                    end)
-                  end
-                }:start()
-              end
-
-            end
-          }
-        }
+        -- react_build = {
+        --   {
+        --     event = "BufWritePost",
+        --     pattern = "*.js",
+        --     callback = function()
+        --       if not _G['react_project'] then
+        --         _G['react_project'] = find_app_jsx_dir(".")
+        --         if not _G['react_project'] then
+        --           _G['react_project'] = 'not found'
+        --         end
+        --       end
+        --
+        --       if _G['react_project'] and _G['react_project'] ~= 'not found' then
+        --         local Job = require('plenary.job')
+        --         Job:new{
+        --           command = "bash",
+        --           args = { "-c", "npm --prefix " .. _G['react_project'] .. " run build && ./mvnw compile" },
+        --           cwd = ".",
+        --           on_exit = function(j, return_val)
+        --             vim.schedule(function()
+        --               if return_val == 0 then
+        --                 vim.fn.system("notify-send 'vim' '✅ build completed!' && canberra-gtk-play -i message --volume=1")
+        --               else
+        --                 local error_msg = "❌ build fail!\n" .. table.concat(j:stderr_result(), "\n")
+        --                 vim.fn.system("notify-send -u critical '" .. error_msg .. "' && canberra-gtk-play -i message --volume=1")
+        --               end
+        --             end)
+        --           end
+        --         }:start()
+        --       end
+        --
+        --     end
+        --   }
+        -- }
       }
     }
   },

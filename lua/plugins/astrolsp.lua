@@ -10,7 +10,7 @@ return {
   opts = {
     -- Configuration table of features provided by AstroLSP
     features = {
-      codelens = false, -- disabled: using lsp-lens.nvim for inlay-style codelens
+      codelens = false,    -- disabled: using lsp-lens.nvim for inlay-style codelens
       inlay_hints = false, -- enable/disable inlay hints on start
       semantic_tokens = true, -- enable/disable semantic token highlighting
     },
@@ -71,7 +71,9 @@ return {
           -- the rest of the autocmd options (:h nvim_create_autocmd)
           desc = "Refresh codelens (buffer)",
           callback = function(args)
-            if require("astrolsp").config.features.codelens then vim.lsp.codelens.enable(true, { bufnr = args.buf }) end
+            if require("astrolsp").config.features.codelens then
+              vim.lsp.codelens.enable(true, { bufnr = args.buf })
+            end
           end,
         },
       },
@@ -81,76 +83,151 @@ return {
       n = {
         -- a `cond` key can provided as the string of a server capability to be required to attach, or a function with `client` and `bufnr` parameters from the `on_attach` that returns a boolean
         gD = {
-          function() vim.lsp.buf.declaration() end,
+          function()
+            vim.lsp.buf.declaration()
+          end,
           desc = "Declaration of current symbol",
           cond = "textDocument/declaration",
         },
         ["<Leader>uY"] = {
-          function() require("astrolsp.toggles").buffer_semantic_tokens() end,
+          function()
+            require("astrolsp.toggles").buffer_semantic_tokens()
+          end,
           desc = "Toggle LSP semantic highlight (buffer)",
           cond = function(client)
-            return client.supports_method "textDocument/semanticTokens/full" and vim.lsp.semantic_tokens ~= nil
+            return client.supports_method("textDocument/semanticTokens/full")
+                and vim.lsp.semantic_tokens ~= nil
           end,
         },
-        ["gI"] = { function() vim.lsp.buf.implementation() end, desc = "go to implementation"},
-        ["gm"] = { function() require("javautil").jump_to_mapper_xml() end, desc = "jump to Mybatis Mapper"},
-        ["gM"] = { function() require("javautil").jump_to_endpoint_handler() end, desc = "jump to endpoint"},
+        ["gI"] = {
+          function()
+            vim.lsp.buf.implementation()
+          end,
+          desc = "go to implementation",
+        },
+        ["gm"] = {
+          function()
+            require("javautil").jump_to_mapper_xml()
+          end,
+          desc = "jump to Mybatis Mapper",
+        },
+        ["gM"] = {
+          function()
+            require("javautil").jump_to_endpoint_handler()
+          end,
+          desc = "jump to endpoint",
+        },
         ["<Leader>j"] = { name = "Java" },
-        ["<Leader>ji"] = { function() require("jdtls").organize_imports() end, desc = "organize_imports" },
+        ["<Leader>ji"] = {
+          function()
+            require("jdtls").organize_imports()
+          end,
+          desc = "organize_imports",
+        },
         ["<Leader>jd"] = { desc = "junit test" },
         ["<Leader>jda"] = {
           function()
-            require("jdtls").test_class { after_test = function() require("dapui").toggle() end }
+            require("jdtls").test_class({
+              after_test = function()
+                require("dapui").toggle()
+              end,
+            })
           end,
           desc = "test class",
         },
         ["<Leader>jdc"] = {
           function()
-            local root_dir = require("jdtls.setup").find_root { "mvnw", ".git", "gradlew", "pom.xml", "build.gradle" }
-            local project_name = root_dir:match ".*/(.*)"
+            local root_dir =
+                require("jdtls.setup").find_root({ "mvnw", ".git", "gradlew", "pom.xml", "build.gradle" })
+            local project_name = root_dir:match(".*/(.*)")
             local vmArgs = "-Djava.net.preferIPv4Stack=true"
 
             if project_name == "SMART_PEM7" or project_name == "GS_ASAN_SVBS" then
               vmArgs = vmArgs
-                .. " -Dkey.file.path="
-                .. root_dir
-                .. "/testKey -Dfile.dec.key=88cbd881097ca61985320c65a8e36061"
+                  .. " -Dkey.file.path="
+                  .. root_dir
+                  .. "/testKey -Dfile.dec.key=88cbd881097ca61985320c65a8e36061"
             end
 
             if project_name == "IMCS" then
-                vmArgs = vmArgs .. " -Djava.security.properties=/home/zero/git/IMCS/src/main/resources/custom.security"
+              vmArgs = vmArgs
+                  .. " -Djava.security.properties=/home/zero/git/IMCS/src/main/resources/custom.security"
             end
 
-            require("jdtls").test_nearest_method {
+            require("jdtls").test_nearest_method({
               config_overrides = {
                 vmArgs = vmArgs,
               },
-              after_test = function() require("dapui").toggle() end,
-            }
+              after_test = function()
+                require("dapui").toggle()
+              end,
+            })
           end,
           desc = "test method",
         },
         ["<Leader>jt"] = { desc = "Template" },
-        ["<Leader>jtj"] = { function() vim.cmd "Template class" end, desc = "class Template" },
-        ["<Leader>jti"] = { function() vim.cmd "Template interface" end, desc = "interface Template" },
-        ["<Leader>jtc"] = { function() vim.cmd "Template controller" end, desc = "controller Template" },
-        ["<Leader>jts"] = { function() vim.cmd "Template service" end, desc = "service Template" },
-        ["<Leader>jtm"] = { function() vim.cmd "Template mybatis" end, desc = "mybatis Template" },
+        ["<Leader>jtj"] = {
+          function()
+            vim.cmd("Template class")
+          end,
+          desc = "class Template",
+        },
+        ["<Leader>jti"] = {
+          function()
+            vim.cmd("Template interface")
+          end,
+          desc = "interface Template",
+        },
+        ["<Leader>jtc"] = {
+          function()
+            vim.cmd("Template controller")
+          end,
+          desc = "controller Template",
+        },
+        ["<Leader>jts"] = {
+          function()
+            vim.cmd("Template service")
+          end,
+          desc = "service Template",
+        },
+        ["<Leader>jtm"] = {
+          function()
+            vim.cmd("Template mybatis")
+          end,
+          desc = "mybatis Template",
+        },
         ["<Leader>jte"] = {
           function()
-            local data_type = vim.fn.input "Enter data type: "
+            local data_type = vim.fn.input("Enter data type: ")
             vim.cmd("Template var=" .. data_type .. " enum")
           end,
           desc = "enum class Template",
         },
-        ["<Leader>jtv"] = { function() vim.cmd "Template vo" end, desc = "value object Template" },
-        ["<Leader>jtf"] = { function() require("javautil").makeRequestMapping() end, desc = "mapping method Template" },
+        ["<Leader>jtv"] = {
+          function()
+            vim.cmd("Template vo")
+          end,
+          desc = "value object Template",
+        },
+        ["<Leader>jtf"] = {
+          function()
+            require("javautil").makeRequestMapping()
+          end,
+          desc = "mapping method Template",
+        },
         ["<Leader>jr"] = { desc = "generate annotation" },
         ["<Leader>jrf"] = {
-          function() require("neogen").generate { type = "func" } end,
+          function()
+            require("neogen").generate({ type = "func" })
+          end,
           desc = "generate javadoc annotation for method",
         },
-        ["<Leader>Tn"] = { function() require("todo-comments").jump_next() end, desc = "next-TODO comment" },
+        ["<Leader>Tn"] = {
+          function()
+            require("todo-comments").jump_next()
+          end,
+          desc = "next-TODO comment",
+        },
         ["<Leader>r"] = { desc = "reset plugin" },
         ["<Leader>rd"] = {
           function()
@@ -200,14 +277,16 @@ return {
         },
         ["<Leader>rj"] = {
           function()
-            require("jdtls.dap").setup_dap_main_class_configs {
+            require("jdtls.dap").setup_dap_main_class_configs({
               config_overrides = { vmArgs = "-Dspring.profiles.active=dev" },
-            }
+            })
           end,
           desc = "find main class for java",
         },
         ["<Leader>lR"] = {
-          function() require('snacks').picker.lsp_references() end,
+          function()
+            require("snacks").picker.lsp_references()
+          end,
           desc = "lsp references in telescope",
         },
       },
@@ -215,15 +294,21 @@ return {
         ["<Leader>j"] = { name = "java" },
         ["<Leader>jj"] = { desc = "convert" },
         ["<Leader>jjq"] = {
-          function() require("javautil").columnToMybatisValue() end,
+          function()
+            require("javautil").columnToMybatisValue()
+          end,
           desc = "make insert query value",
         },
         ["<Leader>jjv"] = {
-          function() require("javautil").mysqlToValueObject() end,
+          function()
+            require("javautil").mysqlToValueObject()
+          end,
           desc = "convert ddl for mysql to value object",
         },
         ["<Leader>jjo"] = {
-          function() require("javautil").mysqlToObjectMapper() end,
+          function()
+            require("javautil").mysqlToObjectMapper()
+          end,
           desc = "convert ddl for mysql to objectMapper",
         },
       },
@@ -233,7 +318,6 @@ return {
     on_attach = function(client, bufnr)
       -- this would disable semanticTokensProvider for all clients
       -- client.server_capabilities.semanticTokensProvider = nil
-
     end,
   },
 }

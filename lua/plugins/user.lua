@@ -30,42 +30,88 @@ return {
     opts = {
       autocmds = {
         -- first key is the augroup name
-        react_build = {
-          {
-            event = "BufWritePost",
-            pattern = "*.js",
-            callback = function()
-              if not _G['react_project'] then
-                _G['react_project'] = find_app_jsx_dir(".")
-                if not _G['react_project'] then
-                  _G['react_project'] = 'not found'
-                end
-              end
-
-              if _G['react_project'] and _G['react_project'] ~= 'not found' then
-                local Job = require('plenary.job')
-                Job:new{
-                  command = "bash",
-                  args = { "-c", "npm --prefix " .. _G['react_project'] .. " run build && ./mvnw compile" },
-                  cwd = ".",
-                  on_exit = function(j, return_val)
-                    vim.schedule(function()
-                      if return_val == 0 then
-                        vim.fn.system("notify-send 'vim' '✅ build completed!' && canberra-gtk-play -i message --volume=1")
-                      else
-                        local error_msg = "❌ build fail!\n" .. table.concat(j:stderr_result(), "\n")
-                        vim.fn.system("notify-send -u critical '" .. error_msg .. "' && canberra-gtk-play -i message --volume=1")
-                      end
-                    end)
-                  end
-                }:start()
-              end
-
-            end
-          }
-        }
+        -- react_build = {
+        --   {
+        --     event = "BufWritePost",
+        --     pattern = "*.js",
+        --     callback = function()
+        --       if not _G['react_project'] then
+        --         _G['react_project'] = find_app_jsx_dir(".")
+        --         if not _G['react_project'] then
+        --           _G['react_project'] = 'not found'
+        --         end
+        --       end
+        --
+        --       if _G['react_project'] and _G['react_project'] ~= 'not found' then
+        --         local Job = require('plenary.job')
+        --         Job:new{
+        --           command = "bash",
+        --           args = { "-c", "npm --prefix " .. _G['react_project'] .. " run build && ./mvnw compile" },
+        --           cwd = ".",
+        --           on_exit = function(j, return_val)
+        --             vim.schedule(function()
+        --               if return_val == 0 then
+        --                 vim.fn.system("notify-send 'vim' '✅ build completed!' && canberra-gtk-play -i message --volume=1")
+        --               else
+        --                 local error_msg = "❌ build fail!\n" .. table.concat(j:stderr_result(), "\n")
+        --                 vim.fn.system("notify-send -u critical '" .. error_msg .. "' && canberra-gtk-play -i message --volume=1")
+        --               end
+        --             end)
+        --           end
+        --         }:start()
+        --       end
+        --
+        --     end
+        --   }
+        -- }
       }
     }
+  },
+  {
+    "mfussenegger/nvim-dap",
+    config = function(plugin, opts)
+
+      require("astronvim.plugins.configs.nvim-dap")(plugin, opts)
+
+      local dap = require("dap")
+
+      dap.adapters["pwa-node"] = {
+        type = "server",
+        host = "127.0.0.1",
+        port = "${port}",
+        executable = {
+          command = "node",
+          args = {
+            "/Users/zero/Downloads/js-debug/src/dapDebugServer.js",
+            "${port}",
+            "127.0.0.1",
+          },
+        },
+      }
+
+      for _, language in ipairs({ "typescript", "javascript" }) do
+        dap.configurations[language] = {
+          {
+            type = "pwa-node",
+            request = "launch",
+            name = "Electron: Main Process",
+            cwd = "${workspaceFolder}",
+            runtimeExecutable = "${workspaceFolder}/node_modules/.bin/electron",
+            runtimeArgs = { "." },
+            sourceMaps = true,
+            skipFiles = {"<node_internals>/**" },
+          },
+          {
+            type = "pwa-node",
+            request = "attach",
+            name = "Electron: Attach (port 5858)",
+            port = 5858,
+            cwd = "${workspaceFolder}",
+            skipFiles = { "<node_internals>/**" },
+          },
+        }
+      end
+    end
   },
   {
     "coder/claudecode.nvim",

@@ -79,6 +79,8 @@ return {
       { "<leader>am", "<cmd>ClaudeCodeSelectModel<cr>", desc = "Select Claude model" },
       { "<leader>ab", "<cmd>ClaudeCodeAdd %<cr>", desc = "Add current buffer" },
       { "<leader>as", "<cmd>ClaudeCodeSend<cr>", mode = "v", desc = "Send to Claude" },
+      { "<C-,>", "<cmd>ClaudeCode<cr>", mode = "t", desc = "Toggle Claude" },
+      { "<C-,>", "<cmd>ClaudeCode<cr>", mode = "n", desc = "Toggle Claude" },
     },
     opts = {
       diff_opts = {

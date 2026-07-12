@@ -75,25 +75,6 @@ return {
           end,
         },
       },
-      jdtls = {
-        {
-          event = {"BufWritePost"},
-          desc = "",
-          callback = function(args)
-            local root_dir = require("jdtls.setup").find_root({"mvnw", "gradlew", "pom.xml", "build.gradle"})
-
-            if root_dir and root_dir ~= ""
-              then
-              local Job = require("plenary.job")
-              Job:new{
-                command = "./mvnw",
-                args = { "compile" },
-                cwd = root_dir,
-              }:start()
-            end
-          end
-        },
-      }
     },
     -- mappings to be set up on attaching of a language server
     mappings = {
@@ -134,6 +115,10 @@ return {
                 .. " -Dkey.file.path="
                 .. root_dir
                 .. "/testKey -Dfile.dec.key=88cbd881097ca61985320c65a8e36061"
+            end
+
+            if project_name == "IMCS" then
+                vmArgs = vmArgs .. " -Djava.security.properties=/home/zero/git/IMCS/src/main/resources/custom.security"
             end
 
             require("jdtls").test_nearest_method {

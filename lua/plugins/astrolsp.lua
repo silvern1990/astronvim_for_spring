@@ -85,11 +85,16 @@ return {
             if root_dir and root_dir ~= ""
               then
               local Job = require("plenary.job")
-              Job:new{
-                command = "./mvnw",
-                args = { "compile" },
-                cwd = root_dir,
-              }:start()
+              pcall(function()
+                Job:new{
+                  command = "./mvnw",
+                  args = { "compile" },
+                  cwd = root_dir,
+                  -- 컴파일 실패/경고로 인한 에러를 무시 (stderr·exit code 무시)
+                  on_stderr = function() end,
+                  on_exit = function() end,
+                }:start()
+              end)
             end
           end
         },
@@ -134,6 +139,10 @@ return {
                 .. " -Dkey.file.path="
                 .. root_dir
                 .. "/testKey -Dfile.dec.key=88cbd881097ca61985320c65a8e36061"
+            end
+
+            if project_name == "IMCS" then
+              vmArgs = vmArgs .. " -Djava.security.properties=/home/zero/git/IMCS/src/main/resources/custom.security"
             end
 
             require("jdtls").test_nearest_method {

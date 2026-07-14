@@ -63,6 +63,13 @@ return {
 
             end
           }
+        },
+        diff_wrap = {
+          event = "WinNew",
+          pattern = "*",
+          callback = function()
+            vim.cmd('setlocal wrap')
+          end
         }
       }
     }
@@ -79,6 +86,15 @@ return {
       { "<leader>am", "<cmd>ClaudeCodeSelectModel<cr>", desc = "Select Claude model" },
       { "<leader>ab", "<cmd>ClaudeCodeAdd %<cr>", desc = "Add current buffer" },
       { "<leader>as", "<cmd>ClaudeCodeSend<cr>", mode = "v", desc = "Send to Claude" },
+      { toggle_key, "<cmd>ClaudeCodeFocus<cr>", desc = "Claude Code", mode = { "n", "x" }},
+    },
+    opts = {
+      diff_opts = {
+        layout = "horizontal",
+        open_in_new_tab = true,
+        keep_terminal_focus = false,
+        hide_terminal_in_new_tab = false,
+      }
     }
   },
   {

@@ -70,10 +70,10 @@ return {
           desc = "float console window",
         },
         ["<Leader>dR"] = { function() require("dap").repl.toggle { height = 15 } end, desc = "Toggle REPL" },
-        ["<A-h>"] = { function() require("smart-splits").resize_left() end, desc = "resize_window" },
-        ["<A-j>"] = { function() require("smart-splits").resize_down() end, desc = "resize_window" },
-        ["<A-k>"] = { function() require("smart-splits").resize_up() end, desc = "resize_window" },
-        ["<A-l>"] = { function() require("smart-splits").resize_right() end, desc = "resize_window" },
+        ["<A-H>"] = { function() require("smart-splits").resize_left() end, desc = "resize_window" },
+        ["<A-J>"] = { function() require("smart-splits").resize_down() end, desc = "resize_window" },
+        ["<A-K>"] = { function() require("smart-splits").resize_up() end, desc = "resize_window" },
+        ["<A-L>"] = { function() require("smart-splits").resize_right() end, desc = "resize_window" },
         -- second key is the lefthand side of the map
 
         -- navigate buffer tabs

@@ -319,6 +319,7 @@ return {
 							"*.png",
 							"*.dbm",
 						},
+						ignored = true,
 					})
 				end,
 				desc = "Find Files",

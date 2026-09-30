@@ -52,6 +52,9 @@ return {
 
       -- the key is the server that is being setup with `lspconfig`
       -- rust_analyzer = false, -- setting a handler to false will disable the set up of that language server
+      -- python: basedpyright 만 사용 (mason 에 설치된 pyrefly/ty 가 함께 붙어 codelens·definition 이 중복됨)
+      pyrefly = false,
+      ty = false,
       -- pyright = function(_, opts) require("lspconfig").pyright.setup(opts) end -- or a custom handler function can be passed
     },
     -- Configure buffer local auto commands to add when attaching a language server

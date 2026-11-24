@@ -137,12 +137,34 @@ return {
 			{ "<C-,>", "<cmd>ClaudeCode<cr>", mode = "n", desc = "Toggle Claude" },
 		},
 		opts = {
+			focus_after_send = true,
 			diff_opts = {
 				layout = "horizontal",
 				open_in_new_tab = true,
 				keep_terminal_focus = false,
 				hide_terminal_in_new_tab = false,
 			},
+			terminal = {
+				---@module "snacks"
+				---@type snacks.win.config|{}
+				snacks_win_opts = {
+					position = "float",
+					width = 0.9,
+					height = 0.9,
+					keys = {
+						claude_hide = {
+							"<C-,>",
+							function(self)
+								self:hide()
+							end,
+							mode = "t",
+							desc = "Hide",
+						}
+					},
+				},
+			}
+
+
 		},
 	},
 	{

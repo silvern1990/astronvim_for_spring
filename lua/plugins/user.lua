@@ -151,6 +151,9 @@ return {
 					position = "float",
 					width = 0.9,
 					height = 0.9,
+					border = "rounded",
+					title = "claude",
+					title_pos = "center",
 					keys = {
 						claude_hide = {
 							"<C-,>",
